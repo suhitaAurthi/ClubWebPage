@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="index.aspx.cs" Inherits="SGIPC_Website.index" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="index.aspx.cs" Inherits="SGIPC_Website2.index" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
@@ -8,16 +8,16 @@
 
     <title>SGIPC - Welcome</title>
 
-    <link rel="stylesheet" href="Content/index.css" />
+    <link rel="stylesheet" href="Content2/index.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 
 <body>
-    <form id="form1" runat="server">
+    <form id="form2" runat="server">
 
         <!-- Fixed Header -->
         <header class="header">
-            <img src="Images/sgipc_logo.png" alt="SGIPC Logo" class="club-logo" />
+            <img src="Images2/sgipc_logo.png" alt="SGIPC Logo" class="club-logo" />
 
             <h1 class="club-branding" style="color: blueviolet;">|</h1>
             <h1 class="club-branding" style="color: rgb(80, 26, 88);">SGIPC</h1>
@@ -93,7 +93,7 @@
                 </div>
 
                 <div class="hero-image">
-                    <img src="Images/hero.png" alt="Club Hero Image" />
+                    <img src="Images2/hero.png" alt="Club Hero Image" />
                 </div>
             </section>
 

@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SGIPC_Website
+namespace SGIPC_Website2
 {
 
 

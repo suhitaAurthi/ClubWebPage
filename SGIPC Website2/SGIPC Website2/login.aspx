@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="login.aspx.cs" Inherits="SGIPC_Website.login" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="login.aspx.cs" Inherits="SGIPC_Website2.login" %>
 
 <!DOCTYPE html>
 
@@ -9,14 +9,14 @@
 
     <title>Login Page</title>
 
-    <link rel="stylesheet" href="Content/login.css" />
+    <link rel="stylesheet" href="Content2/login.css" />
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;icon_names=key_vertical,person&amp;display=block" />
 </head>
 
     <!--Simple login page-->
 <body>
-    <form id="form1" runat="server">
+    <form id="form2" runat="server">
         <div class="login-container">
             <h2 style="text-align: center; font-size: 15px; color: #672aa1;">Login</h2>
             <div class="form-group">

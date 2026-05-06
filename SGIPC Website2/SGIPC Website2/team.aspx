@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="gallery.aspx.cs" Inherits="SGIPC_Website.gallery" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="team.aspx.cs" Inherits="SGIPC_Website2.team" %>
 
 <!DOCTYPE html>
 

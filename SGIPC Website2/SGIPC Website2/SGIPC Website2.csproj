@@ -7,16 +7,16 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{F7278C70-62AB-407F-BF34-C239E5DC3FD9}</ProjectGuid>
+    <ProjectGuid>{20E13A72-D020-442F-89E9-4C6CB0D638D1}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SGIPC_Website</RootNamespace>
-    <AssemblyName>SGIPC Website</AssemblyName>
+    <RootNamespace>SGIPC_Website2</RootNamespace>
+    <AssemblyName>SGIPC Website2</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
-    <IISExpressSSLPort>44307</IISExpressSSLPort>
+    <IISExpressSSLPort>44392</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -68,14 +68,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="about.aspx" />
-    <Content Include="Content\index.css" />
-    <Content Include="Content\login.css" />
-    <Content Include="Content\register.css" />
+    <Content Include="Content2\index.css" />
+    <Content Include="Content2\login.css" />
+    <Content Include="Content2\register.css" />
     <Content Include="events.aspx" />
     <Content Include="gallery.aspx" />
-    <Content Include="Images\dummy.jpeg" />
-    <Content Include="Images\hero.png" />
-    <Content Include="Images\sgipc_logo.png" />
+    <Content Include="Images2\hero.png" />
+    <Content Include="Images2\sgipc_logo.png" />
     <Content Include="index.aspx" />
     <Content Include="login.aspx" />
     <Content Include="register.aspx" />
@@ -143,6 +142,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -163,9 +163,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>7534</DevelopmentServerPort>
+          <DevelopmentServerPort>12910</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44307/</IISUrl>
+          <IISUrl>https://localhost:44392/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

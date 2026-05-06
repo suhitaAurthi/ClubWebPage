@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SGIPC_Website
+namespace SGIPC_Website2
 {
 
 
-    public partial class about
+    public partial class events
     {
 
         /// <summary>
