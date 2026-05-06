@@ -1,0 +1,144 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #b388eb, #d8b4f8, #f3e8ff);
+}
+
+/* ASP.NET form */
+#form1 {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-container {
+    width: 420px;
+    min-height: 480px;
+    padding: 40px 35px;
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 18px;
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 20px 60px rgba(103, 42, 161, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+}
+
+    .login-container h2 {
+        text-align: center;
+        font-size: 36px !important;
+        color: #672aa1 !important;
+        margin-bottom: 10px;
+        letter-spacing: 1px;
+    }
+
+.form-group {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #f8f1ff;
+    border: 1px solid #d8b4f8;
+    border-radius: 14px;
+    padding: 12px 14px;
+}
+
+.material-symbols-outlined {
+    font-family: 'Material Symbols Outlined' !important;
+    font-size: 26px;
+    color: #7b2cbf;
+    text-transform: none;
+    font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+}
+
+.form-group label {
+    color: #4b156f;
+    font-size: 15px;
+    white-space: nowrap;
+}
+
+.form-group input {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #2d123f;
+    font-size: 15px;
+    padding: 4px;
+}
+
+.form-group:focus-within {
+    border-color: #9d4edd;
+    box-shadow: 0 0 0 4px rgba(157, 78, 221, 0.18);
+}
+
+.forgot {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    color: #5a189a;
+}
+
+    .forgot label {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        cursor: pointer;
+    }
+
+    .forgot a,
+    .reg-link a {
+        color: #7b2cbf;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+        .forgot a:hover,
+        .reg-link a:hover {
+            color: #4b0082;
+            text-decoration: underline;
+        }
+
+.btn {
+    width: 100%;
+    padding: 13px;
+    border: none;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #7b2cbf, #9d4edd);
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(123, 44, 191, 0.35);
+    transition: 0.3s ease;
+}
+
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 14px 30px rgba(123, 44, 191, 0.45);
+        background: linear-gradient(135deg, #5a189a, #7b2cbf);
+    }
+
+.reg-link {
+    text-align: center;
+    color: #4b156f;
+    font-size: 14px;
+}
+
+    .reg-link p {
+        margin-top: 4px;
+    }

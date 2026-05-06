@@ -69,6 +69,8 @@
   <ItemGroup>
     <Content Include="about.aspx" />
     <Content Include="Content\index.css" />
+    <Content Include="Content\login.css" />
+    <Content Include="Content\register.css" />
     <Content Include="events.aspx" />
     <Content Include="gallery.aspx" />
     <Content Include="Images\dummy.jpeg" />
@@ -76,6 +78,7 @@
     <Content Include="Images\sgipc_logo.png" />
     <Content Include="index.aspx" />
     <Content Include="login.aspx" />
+    <Content Include="register.aspx" />
     <Content Include="team.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -116,6 +119,13 @@
       <DependentUpon>login.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="register.aspx.cs">
+      <DependentUpon>register.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="register.aspx.designer.cs">
+      <DependentUpon>register.aspx</DependentUpon>
+    </Compile>
     <Compile Include="team.aspx.cs">
       <DependentUpon>team.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
