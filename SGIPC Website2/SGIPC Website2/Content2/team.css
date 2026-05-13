@@ -1,0 +1,332 @@
+/* Team Page Specific Styles */
+
+.page-header {
+    text-align: center;
+    margin-bottom: 60px;
+    padding: 40px 20px;
+}
+
+.page-header h1 {
+    font-size: 48px;
+    color: #ffffff;
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+}
+
+.page-header p {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.65);
+}
+
+/* Team Section */
+.team-section {
+    margin-bottom: 70px;
+}
+
+.team-section h2 {
+    text-align: center;
+    font-size: 36px;
+    color: #ffffff;
+    margin-bottom: 45px;
+}
+
+/* Team Grid */
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 32px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.team-grid.large {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+/* Team Member Card */
+.team-member {
+    text-align: center;
+    padding: 30px 24px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.025));
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: 0.3s ease;
+}
+
+.team-member:hover {
+    transform: translateY(-8px);
+    background: rgba(138, 43, 226, 0.12);
+    border-color: rgba(190, 120, 255, 0.25);
+}
+
+/* Member Image */
+.member-image {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 18px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(138, 43, 226, 0.30), rgba(80, 26, 88, 0.30));
+    border: 2px solid rgba(190, 120, 255, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.placeholder-avatar {
+    font-size: 60px;
+    line-height: 1;
+}
+
+.team-member img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Member Info */
+.team-member h3 {
+    font-size: 22px;
+    color: #ffffff;
+    margin-bottom: 6px;
+}
+
+.member-position {
+    color: rgb(215, 185, 255);
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    letter-spacing: 0.5px;
+}
+
+.member-bio {
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 16px;
+}
+
+/* Social Links */
+.member-socials {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.member-socials a {
+    width: 36px;
+    height: 36px;
+    background: rgba(138, 43, 226, 0.20);
+    border: 1px solid rgba(190, 120, 255, 0.35);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(215, 185, 255);
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+.member-socials a:hover {
+    background: rgb(138, 43, 226);
+    border-color: rgba(190, 120, 255, 0.70);
+    transform: translateY(-3px);
+}
+
+/* Join Section */
+.join-section {
+    text-align: center;
+    padding: 60px 40px;
+    background: linear-gradient(135deg, rgba(138, 43, 226, 0.12), rgba(138, 43, 226, 0.06));
+    border: 1px solid rgba(190, 120, 255, 0.25);
+    border-radius: 28px;
+    max-width: 900px;
+    margin: 0 auto;
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+}
+
+.join-section h2 {
+    font-size: 36px;
+    color: #ffffff;
+    margin-bottom: 14px;
+}
+
+.join-section p {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.72);
+    margin-bottom: 28px;
+}
+
+.join-section .cta-button {
+    display: inline-block;
+    background: rgb(80, 26, 88);
+    color: #ffffff;
+    border: none;
+    padding: 14px 34px;
+    font-size: 15px;
+    font-weight: 800;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    text-decoration: none;
+}
+
+.join-section .cta-button:hover {
+    background: blueviolet;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(138, 43, 226, 0.28);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .team-grid {
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+        gap: 24px;
+    }
+
+    .team-grid.large {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+
+    .member-image {
+        width: 100px;
+        height: 100px;
+    }
+
+    .placeholder-avatar {
+        font-size: 48px;
+    }
+}
+
+@media (max-width: 768px) {
+    .page-header h1 {
+        font-size: 32px;
+    }
+
+    .team-section h2 {
+        font-size: 28px;
+        margin-bottom: 35px;
+    }
+
+    .team-grid,
+    .team-grid.large {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+    }
+
+    .team-member {
+        padding: 24px 18px;
+    }
+
+    .member-image {
+        width: 90px;
+        height: 90px;
+        margin-bottom: 14px;
+    }
+
+    .placeholder-avatar {
+        font-size: 40px;
+    }
+
+    .team-member h3 {
+        font-size: 18px;
+    }
+
+    .member-bio {
+        font-size: 13px;
+    }
+
+    .join-section {
+        padding: 40px 30px;
+    }
+
+    .join-section h2 {
+        font-size: 28px;
+    }
+
+    .join-section p {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-header {
+        margin-bottom: 40px;
+        padding: 30px 15px;
+    }
+
+    .page-header h1 {
+        font-size: 26px;
+    }
+
+    .page-header p {
+        font-size: 14px;
+    }
+
+    .team-section h2 {
+        font-size: 22px;
+        margin-bottom: 25px;
+    }
+
+    .team-grid,
+    .team-grid.large {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .team-member {
+        padding: 20px 16px;
+    }
+
+    .member-image {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 12px;
+    }
+
+    .placeholder-avatar {
+        font-size: 36px;
+    }
+
+    .team-member h3 {
+        font-size: 16px;
+    }
+
+    .member-position {
+        font-size: 12px;
+    }
+
+    .member-bio {
+        font-size: 12px;
+        margin-bottom: 12px;
+    }
+
+    .member-socials {
+        gap: 10px;
+    }
+
+    .member-socials a {
+        width: 32px;
+        height: 32px;
+    }
+
+    .join-section {
+        padding: 35px 20px;
+        margin: 40px 0;
+    }
+
+    .join-section h2 {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    .join-section p {
+        font-size: 13px;
+        margin-bottom: 20px;
+    }
+}

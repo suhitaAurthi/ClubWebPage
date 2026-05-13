@@ -158,3 +158,8 @@ body {
         font-size: 30px;
     }
 }
+
+.error {
+    color: red;
+    font-size: 12px;
+}

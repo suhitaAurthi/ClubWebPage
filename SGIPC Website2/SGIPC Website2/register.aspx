@@ -1,5 +1,4 @@
-﻿
-<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="register.aspx.cs" Inherits="SGIPC_Website2.register" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="register.aspx.cs" Inherits="SGIPC_Website2.register" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -12,6 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 
     <link rel="stylesheet" href="Content2/register.css" />
+    <script src="Scripts/register.js" defer></script>
 </head>
 
 <body>
@@ -44,15 +44,18 @@
             <div class="form-group">
                 <span class="material-symbols-outlined">key_vertical</span>
                 <label for="password">Password:</label>
-                <input type="password" id="password" runat="server" />
+                <input type="password" id="password" runat="server" clientidmode="Static" />
             </div>
 
             <!-- Confirm Password Field -->
             <div class="form-group">
                 <span class="material-symbols-outlined">key_vertical</span>
                 <label for="confirmPassword">Confirm:</label>
-                <input type="password" id="confirmPassword" runat="server" />
+                <input type="password" id="confirmPassword" runat="server" clientidmode="Static" />
             </div>
+
+            <small id="confirmPasswordError" class="error"></small>
+
 
             <!-- Register Button -->
             <button type="submit" class="btn">Register</button>

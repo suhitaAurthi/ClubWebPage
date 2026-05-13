@@ -17,19 +17,36 @@
 
         <!-- Fixed Header -->
         <header class="header">
-            <img src="Images2/sgipc_logo.png" alt="SGIPC Logo" class="club-logo" />
 
-            <h1 class="club-branding" style="color: blueviolet;">|</h1>
-            <h1 class="club-branding" style="color: rgb(80, 26, 88);">SGIPC</h1>
+            <div class="brand-box">
+                <img src="Images2/sgipc_logo.png" alt="SGIPC Logo" class="club-logo" />
+
+                <div class="brand-divider"></div>
+
+                <div class="brand-text">
+                    <h1>SGIPC</h1>
+                    <p>Programming Club</p>
+                </div>
+            </div>
+
+            <div class="auth-links">
+                <a href="login.aspx">Login</a>
+                <a href="register.aspx">Register</a>
+            </div>
+
         </header>
 
         <!-- Hamburger Menu -->
         <input type="checkbox" id="hamburger-toggle" class="hamburger-toggle" />
 
         <label for="hamburger-toggle" class="hamburger">
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
+            <span class="menu-text">MENU</span>
+
+            <span class="menu-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </span>
 
             <span class="close-icon">
                 Close <i class="fas fa-times"></i>
@@ -38,39 +55,58 @@
 
         <!-- Sidebar Navigation -->
         <aside class="sidebar">
-            <nav class="sidebar-nav" style="border-radius: 10px;">
 
-                <div class="sidebar-link-wrapper">
-                    <a href="index.aspx" class="sidebar-link">
-                        <i class="fas fa-home"></i> Home
-                    </a>
-                </div>
+            <div class="sidebar-brand">
+                <img src="Images2/sgipc_logo.png" alt="SGIPC Logo" />
 
-                <div class="sidebar-link-wrapper">
-                    <a href="about.aspx" class="sidebar-link">
-                        <i class="fas fa-circle-info"></i> About
-                    </a>
+                <div>
+                    <h3>SGIPC</h3>
+                    <p>Explore Club</p>
                 </div>
+            </div>
 
-                <div class="sidebar-link-wrapper">
-                    <a href="event.aspx" class="sidebar-link">
-                        <i class="fas fa-calendar"></i> Events
-                    </a>
-                </div>
+            <div class="sidebar-search">
+                <i class="fas fa-search"></i>
+                <input type="text" id="menuSearch" placeholder="Search" />
+                <i class="fas fa-sliders"></i>
+            </div>
 
-                <div class="sidebar-link-wrapper">
-                    <a href="gallery.aspx" class="sidebar-link">
-                        <i class="fas fa-images"></i> Gallery
-                    </a>
-                </div>
+            <p class="sidebar-title">MENU</p>
 
-                <div class="sidebar-link-wrapper">
-                    <a href="team.aspx" class="sidebar-link">
-                        <i class="fas fa-people-group"></i> Team
-                    </a>
-                </div>
+            <nav class="sidebar-nav">
+
+                <a href="index.aspx" class="sidebar-link active">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+
+                <a href="about.aspx" class="sidebar-link">
+                    <i class="fas fa-circle-info"></i>
+                    <span>About</span>
+                </a>
+
+                <a href="events.aspx" class="sidebar-link">
+                    <i class="fas fa-calendar"></i>
+                    <span>Events</span>
+                </a>
+
+                <a href="gallery.aspx" class="sidebar-link">
+                    <i class="fas fa-images"></i>
+                    <span>Gallery</span>
+                </a>
+
+                <a href="team.aspx" class="sidebar-link">
+                    <i class="fas fa-people-group"></i>
+                    <span>Team</span>
+                </a>
 
             </nav>
+
+            <div class="sidebar-auth">
+                <a href="login.aspx">Login</a>
+                <a href="register.aspx">Register</a>
+            </div>
+
         </aside>
 
         <!-- Main Content -->
@@ -78,7 +114,10 @@
 
             <!-- Hero Section -->
             <section class="hero">
+
                 <div class="hero-content">
+                    <span class="hero-badge">WELCOME TO SGIPC</span>
+
                     <h2>Welcome to Our Club</h2>
 
                     <p>
@@ -95,6 +134,7 @@
                 <div class="hero-image">
                     <img src="Images2/hero.png" alt="Club Hero Image" />
                 </div>
+
             </section>
 
             <!-- Features Section -->
@@ -131,5 +171,7 @@
         </footer>
 
     </form>
+
+    <script src="Scripts2/index.js"></script>
 </body>
 </html>

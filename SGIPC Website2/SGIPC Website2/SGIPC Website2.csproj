@@ -78,6 +78,9 @@
     <Content Include="index.aspx" />
     <Content Include="login.aspx" />
     <Content Include="register.aspx" />
+    <Content Include="Scripts\index.js" />
+    <Content Include="Scripts\login.js" />
+    <Content Include="Scripts\register.js" />
     <Content Include="team.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
