@@ -1,4 +1,4 @@
-﻿document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("form2");
 
     const fullname = document.getElementById("fullname");
@@ -18,12 +18,16 @@
             alert("Full name is required.");
             isValid = false;
         }
-        else if (username.value.trim() === "") {
-            alert("Username is required.");
+        else if (roll.value.trim() === "") {
+            alert("Roll number is required.");
             isValid = false;
         }
         else if (email.value.trim() === "") {
             alert("Email is required.");
+            isValid = false;
+        }
+        else if (!email.value.includes("@stud.kuet.ac.bd")) {
+            alert("You must give your student email to register.");
             isValid = false;
         }
         else if (password.value.trim() === "") {

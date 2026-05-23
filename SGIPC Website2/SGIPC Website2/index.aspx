@@ -9,7 +9,7 @@
     <title>SGIPC - Welcome</title>
 
     <link rel="stylesheet" href="Content2/index.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" /><script src="Scripts2/index.js"></script>
 </head>
 
 <body>
@@ -118,7 +118,7 @@
                 <div class="hero-content">
                     <span class="hero-badge">WELCOME TO SGIPC</span>
 
-                    <h2>Welcome to Our Club</h2>
+        
 
                     <p>
                         SGIPC arranges workshops and contests regularly to develop the skills of the members.
@@ -128,8 +128,7 @@
                         and professional life.
                     </p>
 
-                    <button type="button" class="cta-button">Learn More</button>
-                </div>
+<button type="button" class="cta-button">Learn More</button>                </div>
 
                 <div class="hero-image">
                     <img src="Images2/hero.png" alt="Club Hero Image" />
@@ -172,6 +171,6 @@
 
     </form>
 
-    <script src="Scripts2/index.js"></script>
+    
 </body>
 </html>

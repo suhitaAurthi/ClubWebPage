@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=key_vertical,person&display=block" />
 
     <!-- CHANGED: Added external JavaScript file for client-side validation -->
-    <script src="Scripts/login.js" defer></script>
+    <script src="Scripts2/login.js" defer></script>
 </head>
 
 <body>
@@ -28,13 +28,13 @@
 
             <div class="form-group">
                 <span class="material-symbols-outlined">person</span>
-                <label for="username">Username/E-mail:</label>
+                <label for="roll">Roll/E-mail:</label>
 
                 <!-- CHANGED: Added ClientIDMode="Static" so JavaScript can easily find this input by id="username" -->
-                <input type="text" id="username" runat="server" ClientIDMode="Static" />
+                <input type="text" id="roll" runat="server" ClientIDMode="Static" />
 
                 <!-- CHANGED: Added small tag to show username validation error using JavaScript -->
-                <small id="usernameError" class="error"></small>
+                <small id="rollError" class="error"></small>
             </div>
 
             <div class="form-group">

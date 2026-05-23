@@ -99,11 +99,11 @@
                 <div class="team-grid">
                     <div class="team-member">
                         <div class="member-image">
-                            <div class="placeholder-avatar">👨‍💼</div>
+                            <i class="fas fa-user"></i>
                         </div>
-                        <h3>John Doe</h3>
+                        <h3>Niloy Das</h3>
                         <p class="member-position">President</p>
-                        <p class="member-bio">Passionate about competitive programming with 3 years of experience.</p>
+                        <p class="member-bio">Roll: 2007086 | CSE | 2k20</p>
                         <div class="member-socials">
                             <a href="#"><i class="fab fa-linkedin"></i></a>
                             <a href="#"><i class="fab fa-github"></i></a>
@@ -112,11 +112,11 @@
 
                     <div class="team-member">
                         <div class="member-image">
-                            <div class="placeholder-avatar">👨‍💻</div>
+                            <i class="fas fa-user"></i>
                         </div>
-                        <h3>Jane Smith</h3>
+                        <h3>Md. Tanjimul Hasan</h3>
                         <p class="member-position">Vice President</p>
-                        <p class="member-bio">Expert in algorithms and data structures, loves mentoring newcomers.</p>
+                        <p class="member-bio">Roll: 2007081 | CSE | 2k20</p>
                         <div class="member-socials">
                             <a href="#"><i class="fab fa-linkedin"></i></a>
                             <a href="#"><i class="fab fa-github"></i></a>
@@ -125,11 +125,11 @@
 
                     <div class="team-member">
                         <div class="member-image">
-                            <div class="placeholder-avatar">👩‍💼</div>
+                            <i class="fas fa-user"></i>
                         </div>
-                        <h3>Sarah Johnson</h3>
-                        <p class="member-position">Secretary</p>
-                        <p class="member-bio">Organized and detail-oriented, manages all club activities and events.</p>
+                        <h3>Shah Md Khalil Ullah</h3>
+                        <p class="member-position">Vice President</p>
+                        <p class="member-bio">Roll: 2007090 | CSE | 2k20</p>
                         <div class="member-socials">
                             <a href="#"><i class="fab fa-linkedin"></i></a>
                             <a href="#"><i class="fab fa-github"></i></a>
@@ -138,17 +138,43 @@
 
                     <div class="team-member">
                         <div class="member-image">
-                            <div class="placeholder-avatar">👨‍💻</div>
+                            <i class="fas fa-user"></i>
                         </div>
-                        <h3>Michael Chen</h3>
+                        <h3>Khadimul Islam Mahi</h3>
+                        <p class="member-position">General Secretary</p>
+                        <p class="member-bio">Roll: 2107076 | CSE | 2k21</p>
+                        <div class="member-socials">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-image">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3>Mohammad Abu Daud Sharif</h3>
+                        <p class="member-position">Assistant General Secretary</p>
+                        <p class="member-bio">Roll: 2107002 | CSE | 2k21</p>
+                        <div class="member-socials">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="member-image">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3>Md Umar Faruk</h3>
                         <p class="member-position">Treasurer</p>
-                        <p class="member-bio">Financial planning and budgeting expert for club activities.</p>
+                        <p class="member-bio">Roll: 2007016 | CSE | 2k20</p>
                         <div class="member-socials">
                             <a href="#"><i class="fab fa-linkedin"></i></a>
                             <a href="#"><i class="fab fa-github"></i></a>
                         </div>
                     </div>
                 </div>
+                                    
             </section>
 
             <!-- Core Team Section -->
@@ -157,56 +183,362 @@
                 <div class="team-grid large">
                     <div class="team-member">
                         <div class="member-image">
-                            <div class="placeholder-avatar">👩‍💻</div>
+                            <i class="fas fa-user"></i>
                         </div>
-                        <h3>Emma Wilson</h3>
-                        <p class="member-position">Event Coordinator</p>
-                        <p class="member-bio">Organizes workshops and competitions.</p>
+                        <h3>Amit Kairy</h3>
+                        <p class="member-position">Organizing Secretary</p>
+                        <p class="member-bio">Roll: 2007069 | CSE | 2k20</p>
                     </div>
 
                     <div class="team-member">
                         <div class="member-image">
-                            <div class="placeholder-avatar">👨‍💻</div>
+                            <i class="fas fa-user"></i>
                         </div>
-                        <h3>David Lee</h3>
-                        <p class="member-position">Technical Lead</p>
-                        <p class="member-bio">Oversees coding challenges and technical workshops.</p>
+                        <h3>Md. Ashraful Haque Sifat</h3>
+                        <p class="member-position">Organizing Secretary</p>
+                        <p class="member-bio">Roll: 2007082 | CSE | 2k20</p>
                     </div>
 
                     <div class="team-member">
                         <div class="member-image">
-                            <div class="placeholder-avatar">👩‍💼</div>
+                            <i class="fas fa-user"></i>
                         </div>
-                        <h3>Lisa Anderson</h3>
-                        <p class="member-position">Mentorship Lead</p>
-                        <p class="member-bio">Coordinates mentorship programs and guidance.</p>
+                        <h3>Siam Arif</h3>
+                        <p class="member-position">Assistant Organizing Secretary</p>
+                        <p class="member-bio">Roll: 2107062 | CSE | 2k21</p>
                     </div>
 
                     <div class="team-member">
                         <div class="member-image">
-                            <div class="placeholder-avatar">👨‍💼</div>
+                            <i class="fas fa-user"></i>
                         </div>
-                        <h3>Alex Rodriguez</h3>
-                        <p class="member-position">Marketing Lead</p>
-                        <p class="member-bio">Promotes club activities and handles social media.</p>
+                        <h3>Siyam Khan</h3>
+                        <p class="member-position">Assistant Organizing Secretary</p>
+                        <p class="member-bio">Roll: 2107120 | CSE | 2k21</p>
                     </div>
 
                     <div class="team-member">
                         <div class="member-image">
-                            <div class="placeholder-avatar">👩‍💻</div>
+                            <i class="fas fa-user"></i>
                         </div>
-                        <h3>Sophie Martin</h3>
-                        <p class="member-position">Logistics Lead</p>
-                        <p class="member-bio">Manages resources and facilities for events.</p>
+                        <h3>Abdullah Al Saif</h3>
+                        <p class="member-position">Assistant Organizing Secretary</p>
+                        <p class="member-bio">Roll: 2107017 | CSE | 2k21</p>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Performance Analyzers -->
+            <section class="team-section">
+                <h2>Performance Analyzers</h2>
+                <div class="team-grid large">
+                    <div class="team-member">
+                        <div class="member-image">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3>Sujoy Sadhu</h3>
+                        <p class="member-position">Performance Analyzer</p>
+                        <p class="member-bio">Roll: 2007019 | CSE | 2k20</p>
                     </div>
 
                     <div class="team-member">
                         <div class="member-image">
-                            <div class="placeholder-avatar">👨‍💻</div>
+                            <i class="fas fa-user"></i>
                         </div>
-                        <h3>James Park</h3>
-                        <p class="member-position">Community Manager</p>
-                        <p class="member-bio">Builds and nurtures the club community.</p>
+                        <h3>Md. Asif Rahman</h3>
+                        <p class="member-position">Performance Analyzer</p>
+                        <p class="member-bio">Roll: 2007044 | CSE | 2k20</p>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="member-image">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3>Md Hafizur Rahman</h3>
+                        <p class="member-position">Performance Analyzer</p>
+                        <p class="member-bio">Roll: 2007080 | CSE | 2k20</p>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="member-image">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3>Rahul Sheikh</h3>
+                        <p class="member-position">Performance Analyzer</p>
+                        <p class="member-bio">Roll: 2107063 | CSE | 2k21</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Batch Representatives -->
+            <section class="team-section">
+                <h2>Batch Representatives</h2>
+                <div class="team-grid large">
+                    
+
+                    <div class="team-member">
+                        <div class="member-image">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3>Saleque Bin Hossain</h3>
+                        <p class="member-position">Batch Representative (2k21)</p>
+                        <p class="member-bio">Roll: 2107026 | CSE | 2k21</p>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="member-image">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3>Alok Baul(Turjo)</h3>
+                        <p class="member-position">Batch Representative (2k22)</p>
+                        <p class="member-bio">Roll: 2207098 | CSE | 2k22</p>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="member-image">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3>Md Farhan Ishraq</h3>
+                        <p class="member-position">Batch Representative (2k23)</p>
+                        <p class="member-bio">Roll: 2307012 | CSE | 2k23</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Senior Mentors -->
+            <section class="team-section">
+                <h2>Senior Mentor for Boys</h2>
+                <div class="team-grid large">
+                    <div class="team-member">
+                        <div class="member-image">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3>Md Babla Islam</h3>
+                        <p class="member-position">Senior Mentor for Boys</p>
+                        <p class="member-bio">Roll: 2007045 | CSE | 2k20</p>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="member-image">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3>Md Raihan Hossain Rakib</h3>
+                        <p class="member-position">Senior Mentor for Boys</p>
+                        <p class="member-bio">Roll: 2007005 | CSE | 2k20</p>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="member-image">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3>Rauful Islam Tamum</h3>
+                        <p class="member-position">Senior Mentor for Boys</p>
+                        <p class="member-bio">Roll: 2007009 | CSE | 2k20</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Junior Mentors -->
+            <section class="team-section">
+                <h2>Junior Mentor For Boys</h2>
+                <div class="team-grid large">
+                    <div class="team-member">
+                        <div class="member-image">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3>Farid Ahmed</h3>
+                        <p class="member-position">Junior Mentor For Boys</p>
+                        <p class="member-bio">Roll: 2107043 | CSE | 2k21</p>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="member-image">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3>Md Mosaddek Ali</h3>
+                        <p class="member-position">Junior Mentor For Boys</p>
+                        <p class="member-bio">Roll: 2107027 | CSE | 2k21</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contest Manager -->
+            <section class="team-section">
+                <h2>Contest Manager</h2>
+                <div class="team-grid large">
+                    <div class="team-member">
+                        <div class="member-image">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3>Dipra Datta</h3>
+                        <p class="member-position">Contest Manager</p>
+                        <p class="member-bio">Roll: 2107070 | CSE | 2k21</p>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="member-image">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3>Ankon Roy</h3>
+                        <p class="member-position">Contest Manager</p>
+                        <p class="member-bio">Roll: 2107113 | CSE | 2k21</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Assistant Contest Manager -->
+            <section class="team-section">
+                <h2>Assistant Contest Manager</h2>
+                <div class="team-grid large">
+                    <div class="team-member">
+                        <div class="member-image">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3>Sk.Nazmus Salehin Nirob</h3>
+                        <p class="member-position">Assistant Contest Manager</p>
+                        <p class="member-bio">Roll: 2207045 | CSE | 2k22</p>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="member-image">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3>Nurul Absar Shadik</h3>
+                        <p class="member-position">Assistant Contest Manager</p>
+                        <p class="member-bio">Roll: 2207065 | CSE | 2k22</p>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="member-image">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3>Sazzad Ahmed</h3>
+                        <p class="member-position">Assistant Contest Manager</p>
+                        <p class="member-bio">Roll: 2207026 | CSE | 2k22</p>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="member-image">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3>MD Shahariar Emon Saikat</h3>
+                        <p class="member-position">Assistant Contest Manager</p>
+                        <p class="member-bio">Roll: 2207002 | CSE | 2k22</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Workshop Manager -->
+            <section class="team-section">
+                <h2>Workshop Manager</h2>
+                <div class="team-grid large">
+                    <div class="team-member">
+                        <div class="member-image">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3>Raihan Arefin</h3>
+                        <p class="member-position">Workshop Manager</p>
+                        <p class="member-bio">Roll: 2107065 | CSE | 2k21</p>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="member-image">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3>Naqibul Haque</h3>
+                        <p class="member-position">Workshop Manager</p>
+                        <p class="member-bio">Roll: 2107077 | CSE | 2k21</p>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="member-image">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3>Md Tariful Islam Jony</h3>
+                        <p class="member-position">Workshop Manager</p>
+                        <p class="member-bio">Roll: 2107119 | CSE | 2k21</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Assistant Workshop Manager -->
+            <section class="team-section">
+                <h2>Assistant Workshop Manager</h2>
+                <div class="team-grid large">
+                    <div class="team-member">
+                        <div class="member-image">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3>Shah Makhdum Sharif</h3>
+                        <p class="member-position">Assistant Workshop Manager</p>
+                        <p class="member-bio">Roll: 2207089 | CSE | 2k22</p>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="member-image">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3>Md Taki Tahmid Saad</h3>
+                        <p class="member-position">Assistant Workshop Manager</p>
+                        <p class="member-bio">Roll: 2207022 | CSE | 2k22</p>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="member-image">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3>Ullas Biswas Shontu</h3>
+                        <p class="member-position">Assistant Workshop Manager</p>
+                        <p class="member-bio">Roll: 2207086 | CSE | 2k22</p>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="member-image">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3>Alif Al Ahad</h3>
+                        <p class="member-position">Assistant Workshop Manager</p>
+                        <p class="member-bio">Roll: 2207016 | CSE | 2k22</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Editorial Manager -->
+            <section class="team-section">
+                <h2>Editorial Manager</h2>
+                <div class="team-grid large">
+                    <div class="team-member">
+                        <div class="member-image">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3>Abir Rahman</h3>
+                        <p class="member-position">Editorial Manager</p>
+                        <p class="member-bio">Roll: 2007026 | CSE | 2k20</p>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="member-image">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3>Md Ahsanul Islam Emon</h3>
+                        <p class="member-position">Editorial Manager</p>
+                        <p class="member-bio">Roll: 2107115 | CSE | 2k21</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Assistant Editorial Manager -->
+            <section class="team-section">
+                <h2>Assistant Editorial Manager</h2>
+                <div class="team-grid large">
+                    <div class="team-member">
+                        <div class="member-image">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3>Md Tahmid Islam</h3>
+                        <p class="member-position">Assistant Editorial Manager</p>
+                        <p class="member-bio">Roll: 2107107 | CSE | 2k21</p>
                     </div>
                 </div>
             </section>
@@ -215,7 +547,7 @@
             <section class="join-section">
                 <h2>Interested in Joining?</h2>
                 <p>We're always looking for passionate programmers and enthusiasts to join our team!</p>
-                <a href="register.aspx" class="cta-button">Register Now</a>
+                <a href="register.aspx" class="register-button">Register Now</a>
             </section>
 
         </main>

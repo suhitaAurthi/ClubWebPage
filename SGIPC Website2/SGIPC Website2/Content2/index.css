@@ -486,7 +486,8 @@ form {
         padding: 0 25px;
     }
 
-    .autright: 16
+    .auth-links {
+        display: flex;
         margin-right: 140px;
         gap: 10px;
     }

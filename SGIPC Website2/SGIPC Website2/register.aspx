@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 
     <link rel="stylesheet" href="Content2/register.css" />
-    <script src="Scripts/register.js" defer></script>
+    <script src="Scripts2/register.js" defer></script>
 </head>
 
 <body>
@@ -28,9 +28,9 @@
 
             <!-- Username Field -->
             <div class="form-group">
-                <span class="material-symbols-outlined">person</span>
-                <label for="username">Username:</label>
-                <input type="text" id="username" runat="server" />
+                <span class="material-symbols-outlined">school</span>
+                <label for="roll">Roll:</label>
+                <input type="text" id="roll" runat="server" />
             </div>
 
             <!-- Email Field -->

@@ -81,6 +81,11 @@
     line-height: 1;
 }
 
+.member-image i {
+    font-size: 50px;
+    color: rgba(215, 185, 255, 0.8);
+}
+
 .team-member img {
     width: 100%;
     height: 100%;
@@ -162,7 +167,8 @@
     margin-bottom: 28px;
 }
 
-.join-section .cta-button {
+.join-section .cta-button,
+.join-section .register-button {
     display: inline-block;
     background: rgb(80, 26, 88);
     color: #ffffff;
@@ -176,7 +182,8 @@
     text-decoration: none;
 }
 
-.join-section .cta-button:hover {
+.join-section .cta-button:hover,
+.join-section .register-button:hover {
     background: blueviolet;
     transform: translateY(-3px);
     box-shadow: 0 12px 28px rgba(138, 43, 226, 0.28);
