@@ -25,8 +25,14 @@
                 </div>
             </div>
             <div class="auth-links">
-                <a href="login.aspx">Login</a>
-                <a href="register.aspx">Register</a>
+                <asp:Panel ID="pnlNotLoggedIn" runat="server" Visible="true">
+                    <a href="login.aspx">Login</a>
+                    <a href="register.aspx">Register</a>
+                </asp:Panel>
+                <asp:Panel ID="pnlLoggedIn" runat="server" Visible="false">
+                    <span style="color: white; margin-right: 15px;">Welcome, <asp:Label ID="lblUserName" runat="server"></asp:Label></span>
+                    <a href="logout.aspx">Logout</a>
+                </asp:Panel>
             </div>
         </header>
 
@@ -80,8 +86,14 @@
                 </a>
             </nav>
             <div class="sidebar-auth">
-                <a href="login.aspx">Login</a>
-                <a href="register.aspx">Register</a>
+                <asp:Panel ID="pnlSidebarNotLoggedIn" runat="server" Visible="true">
+                    <a href="login.aspx">Login</a>
+                    <a href="register.aspx">Register</a>
+                </asp:Panel>
+                <asp:Panel ID="pnlSidebarLoggedIn" runat="server" Visible="false">
+                    <asp:Label ID="lblSidebarUserName" runat="server" style="display: block; color: #672aa1; font-weight: bold; margin-bottom: 10px;"></asp:Label>
+                    <a href="logout.aspx" style="background-color: #dc3545; color: white; padding: 8px; border-radius: 5px; display: inline-block;">Logout</a>
+                </asp:Panel>
             </div>
         </aside>
 
@@ -91,117 +103,114 @@
             <section class="page-header">
                 <h1>Upcoming Events</h1>
                 <p>Join us for exciting workshops and competitions</p>
+                <!-- Management Controls for Approved Team Members -->
+                <div id="teamMemberControls" style="display: none; margin-top: 20px;">
+                    <button id="createEventBtn" class="event-manage-btn">
+                        <i class="fas fa-plus"></i> Create Event
+                    </button>
+                </div>
+            </section>
+
+            <!-- Event Management Form (Hidden by default) -->
+            <section id="eventManagementForm" class="event-management-section" style="display: none;">
+                <div class="management-container">
+                    <h2>Create/Edit Event</h2>
+                    <form id="eventForm" class="event-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="eventTitle">Event Title <span class="required">*</span></label>
+                                <input type="text" id="eventTitle" placeholder="e.g., Algorithm Bootcamp" required />
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="eventDescription">Description <span class="required">*</span></label>
+                                <textarea id="eventDescription" placeholder="Event description..." required rows="4"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="eventType">Event Type <span class="required">*</span></label>
+                                <select id="eventType" required>
+                                    <option value="">Select Type</option>
+                                    <option value="normal">Normal Event</option>
+                                    <option value="team">Team Event</option>
+                                    <option value="contest">Contest</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="eventDate">Event Date <span class="required">*</span></label>
+                                <input type="date" id="eventDate" required />
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="startTime">Start Time <span class="required">*</span></label>
+                                <input type="time" id="startTime" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="endTime">End Time <span class="required">*</span></label>
+                                <input type="time" id="endTime" required />
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="eventLocation">Location <span class="required">*</span></label>
+                                <input type="text" id="eventLocation" placeholder="e.g., Main Hall" required />
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="registrationStatus">Registration Status <span class="required">*</span></label>
+                                <select id="registrationStatus" required>
+                                    <option value="">Select Status</option>
+                                    <option value="open">Open</option>
+                                    <option value="closed">Closed</option>
+                                    <option value="coming-soon">Coming Soon</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="registrationLink">Registration Link</label>
+                                <input type="url" id="registrationLink" placeholder="https://forms.gle/..." />
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="contestLink">Contest Link</label>
+                                <input type="url" id="contestLink" placeholder="https://vjudge.net/..." />
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="publishStatus">Publish Status <span class="required">*</span></label>
+                                <select id="publishStatus" required>
+                                    <option value="published">Published</option>
+                                    <option value="unpublished">Unpublished</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary">Save Event</button>
+                            <button type="button" id="cancelEventBtn" class="btn-secondary">Cancel</button>
+                        </div>
+                    </form>
+                </div>
             </section>
 
             <!-- Events Grid -->
-            <section class="events-section">
-                <div class="event-card">
-                    <div class="event-date">
-                        <span class="date-day">22</span>
-                        <span class="date-month">May</span>
-                    </div>
-                    <div class="event-content">
-                        <h3>Algorithm Bootcamp</h3>
-                        <p class="event-description">
-                            Master advanced algorithms and data structures. Learn sorting, graph theory, dynamic programming and more.
-                        </p>
-                        <div class="event-meta">
-                            <span><i class="fas fa-clock"></i> 2:00 PM - 5:00 PM</span>
-                            <span><i class="fas fa-map-pin"></i> Main Hall</span>
-                        </div>
-                        <button class="event-btn">Register Now</button>
-                    </div>
-                </div>
-
-                <div class="event-card">
-                    <div class="event-date">
-                        <span class="date-day">29</span>
-                        <span class="date-month">May</span>
-                    </div>
-                    <div class="event-content">
-                        <h3>Weekly Contest</h3>
-                        <p class="event-description">
-                            Test your skills in our weekly competitive programming contest. Compete with peers and climb the leaderboard.
-                        </p>
-                        <div class="event-meta">
-                            <span><i class="fas fa-clock"></i> 6:00 PM - 8:00 PM</span>
-                            <span><i class="fas fa-map-pin"></i> Online</span>
-                        </div>
-                        <button class="event-btn">Join Contest</button>
-                    </div>
-                </div>
-
-                <div class="event-card">
-                    <div class="event-date">
-                        <span class="date-day">05</span>
-                        <span class="date-month">Jun</span>
-                    </div>
-                    <div class="event-content">
-                        <h3>Industry Expert Talk</h3>
-                        <p class="event-description">
-                            Learn from professionals working at leading tech companies. Gain insights into career development and opportunities.
-                        </p>
-                        <div class="event-meta">
-                            <span><i class="fas fa-clock"></i> 3:00 PM - 4:30 PM</span>
-                            <span><i class="fas fa-map-pin"></i> Auditorium</span>
-                        </div>
-                        <button class="event-btn">Register Now</button>
-                    </div>
-                </div>
-
-                <div class="event-card">
-                    <div class="event-date">
-                        <span class="date-day">12</span>
-                        <span class="date-month">Jun</span>
-                    </div>
-                    <div class="event-content">
-                        <h3>Web Development Workshop</h3>
-                        <p class="event-description">
-                            Learn modern web development with HTML, CSS, and JavaScript. Build responsive web applications from scratch.
-                        </p>
-                        <div class="event-meta">
-                            <span><i class="fas fa-clock"></i> 2:00 PM - 5:00 PM</span>
-                            <span><i class="fas fa-map-pin"></i> Lab A</span>
-                        </div>
-                        <button class="event-btn">Register Now</button>
-                    </div>
-                </div>
-
-                <div class="event-card">
-                    <div class="event-date">
-                        <span class="date-day">19</span>
-                        <span class="date-month">Jun</span>
-                    </div>
-                    <div class="event-content">
-                        <h3>Team Hackathon</h3>
-                        <p class="event-description">
-                            24-hour hackathon event where teams collaborate to build innovative solutions. Code, create, and compete!
-                        </p>
-                        <div class="event-meta">
-                            <span><i class="fas fa-clock"></i> 10:00 AM - 10:00 AM (Next Day)</span>
-                            <span><i class="fas fa-map-pin"></i> Main Campus</span>
-                        </div>
-                        <button class="event-btn">Register Team</button>
-                    </div>
-                </div>
-
-                <div class="event-card">
-                    <div class="event-date">
-                        <span class="date-day">26</span>
-                        <span class="date-month">Jun</span>
-                    </div>
-                    <div class="event-content">
-                        <h3>Code Review Session</h3>
-                        <p class="event-description">
-                            Get your code reviewed by experienced developers. Learn best practices and improve your programming skills.
-                        </p>
-                        <div class="event-meta">
-                            <span><i class="fas fa-clock"></i> 4:00 PM - 6:00 PM</span>
-                            <span><i class="fas fa-map-pin"></i> Meeting Room 3</span>
-                        </div>
-                        <button class="event-btn">Register Now</button>
-                    </div>
-                </div>
+            <section class="events-section" id="eventsContainer">
+                <!-- Dynamic events will be loaded here by JavaScript -->
             </section>
 
         </main>
@@ -214,5 +223,6 @@
     </form>
 
     <script src="Scripts2/index.js"></script>
+    <script src="Scripts2/events.js"></script>
 </body>
 </html>

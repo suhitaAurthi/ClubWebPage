@@ -25,8 +25,14 @@
                 </div>
             </div>
             <div class="auth-links">
-                <a href="login.aspx">Login</a>
-                <a href="register.aspx">Register</a>
+                <asp:Panel ID="pnlNotLoggedIn" runat="server" Visible="true">
+                    <a href="login.aspx">Login</a>
+                    <a href="register.aspx">Register</a>
+                </asp:Panel>
+                <asp:Panel ID="pnlLoggedIn" runat="server" Visible="false">
+                    <span style="color: white; margin-right: 15px;">Welcome, <asp:Label ID="lblUserName" runat="server"></asp:Label></span>
+                    <a href="logout.aspx">Logout</a>
+                </asp:Panel>
             </div>
         </header>
 
@@ -80,8 +86,14 @@
                 </a>
             </nav>
             <div class="sidebar-auth">
-                <a href="login.aspx">Login</a>
-                <a href="register.aspx">Register</a>
+                <asp:Panel ID="pnlSidebarNotLoggedIn" runat="server" Visible="true">
+                    <a href="login.aspx">Login</a>
+                    <a href="register.aspx">Register</a>
+                </asp:Panel>
+                <asp:Panel ID="pnlSidebarLoggedIn" runat="server" Visible="false">
+                    <asp:Label ID="lblSidebarUserName" runat="server" style="display: block; color: #672aa1; font-weight: bold; margin-bottom: 10px;"></asp:Label>
+                    <a href="logout.aspx" style="background-color: #dc3545; color: white; padding: 8px; border-radius: 5px; display: inline-block;">Logout</a>
+                </asp:Panel>
             </div>
         </aside>
 

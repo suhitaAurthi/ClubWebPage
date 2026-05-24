@@ -20,36 +20,7 @@
 
 /* Gallery Filter */
 .gallery-filter {
-    display: flex;
-    justify-content: center;
-    gap: 14px;
-    flex-wrap: wrap;
-    margin-bottom: 50px;
-}
-
-.filter-btn {
-    background: rgba(255, 255, 255, 0.08);
-    color: rgba(255, 255, 255, 0.75);
-    border: 1px solid rgba(190, 120, 255, 0.20);
-    padding: 12px 28px;
-    border-radius: 25px;
-    font-size: 14px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: 0.3s ease;
-}
-
-.filter-btn:hover {
-    background: rgba(138, 43, 226, 0.20);
-    border-color: rgba(190, 120, 255, 0.40);
-    color: #ffffff;
-}
-
-.filter-btn.active {
-    background: rgb(138, 43, 226);
-    border-color: rgba(190, 120, 255, 0.70);
-    color: #ffffff;
-    box-shadow: 0 8px 24px rgba(138, 43, 226, 0.35);
+    display: none;
 }
 
 /* Gallery Grid */
@@ -125,7 +96,20 @@
     display: none;
 }
 
-/* Responsive */
+/* Gallery Section */
+.gallery-section {
+    margin-bottom: 80px;
+}
+
+.gallery-section h2 {
+    font-size: 36px;
+    color: #ffffff;
+    margin-bottom: 40px;
+    text-align: center;
+    letter-spacing: 0.5px;
+}
+
+
 @media (max-width: 1024px) {
     .gallery-grid {
         grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -159,6 +143,11 @@
 
     .gallery-overlay p {
         font-size: 12px;
+    }
+
+    .gallery-section h2 {
+        font-size: 28px;
+        margin-bottom: 30px;
     }
 }
 
@@ -202,5 +191,120 @@
 
     .gallery-overlay p {
         font-size: 11px;
+    }
+
+    .gallery-section h2 {
+        font-size: 22px;
+        margin-bottom: 20px;
+    }
+
+/* ==========================================
+   Achievements Section Styles
+   ========================================== */
+
+.achievements-section {
+    margin-top: 80px;
+    padding-top: 60px;
+    border-top: 1px solid rgba(190, 120, 255, 0.20);
+}
+
+.achievements-section h2 {
+    text-align: center;
+    font-size: 42px;
+    color: #ffffff;
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+}
+
+.section-subtitle {
+    text-align: center;
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.65);
+    margin-bottom: 50px;
+}
+
+/* Achievements Grid */
+.achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 32px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Achievement Card */
+.achievement-card {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    aspect-ratio: 1;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.achievement-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 24px 60px rgba(138, 43, 226, 0.35);
+}
+
+.achievement-image {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: rgba(138, 43, 226, 0.10);
+}
+
+.achievement-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+    border-radius: 20px;
+}
+
+.achievement-card:hover .achievement-image img {
+    transform: scale(1.08);
+}
+
+
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .achievements-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 24px;
+    }
+}
+
+@media (max-width: 768px) {
+    .achievements-section {
+        margin-top: 60px;
+        padding-top: 40px;
+    }
+
+    .achievements-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .achievements-section {
+        margin-top: 50px;
+        padding-top: 30px;
+    }
+
+    .achievements-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 16px;
+    }
+
+    .achievement-card {
+        border-radius: 16px;
+    }
+
+    .achievement-image img {
+        border-radius: 16px;
     }
 }

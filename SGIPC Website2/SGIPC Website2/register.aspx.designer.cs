@@ -33,13 +33,13 @@ namespace SGIPC_Website2
         protected global::System.Web.UI.HtmlControls.HtmlInputText fullname;
 
         /// <summary>
-        /// username control.
+        /// roll control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText username;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText roll;
 
         /// <summary>
         /// email control.
@@ -67,5 +67,10 @@ namespace SGIPC_Website2
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputPassword confirmPassword;
+
+        /// <summary>
+        /// btnRegister control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Button btnRegister;
     }
 }

@@ -25,8 +25,14 @@
                 </div>
             </div>
             <div class="auth-links">
-                <a href="login.aspx">Login</a>
-                <a href="register.aspx">Register</a>
+                <asp:Panel ID="pnlNotLoggedIn" runat="server" Visible="true">
+                    <a href="login.aspx">Login</a>
+                    <a href="register.aspx">Register</a>
+                </asp:Panel>
+                <asp:Panel ID="pnlLoggedIn" runat="server" Visible="false">
+                    <span style="color: white; margin-right: 15px;">Welcome, <asp:Label ID="lblUserName" runat="server"></asp:Label></span>
+                    <a href="logout.aspx">Logout</a>
+                </asp:Panel>
             </div>
         </header>
 
@@ -80,8 +86,14 @@
                 </a>
             </nav>
             <div class="sidebar-auth">
-                <a href="login.aspx">Login</a>
-                <a href="register.aspx">Register</a>
+                <asp:Panel ID="pnlSidebarNotLoggedIn" runat="server" Visible="true">
+                    <a href="login.aspx">Login</a>
+                    <a href="register.aspx">Register</a>
+                </asp:Panel>
+                <asp:Panel ID="pnlSidebarLoggedIn" runat="server" Visible="false">
+                    <asp:Label ID="lblSidebarUserName" runat="server" style="display: block; color: #672aa1; font-weight: bold; margin-bottom: 10px;"></asp:Label>
+                    <a href="logout.aspx" style="background-color: #dc3545; color: white; padding: 8px; border-radius: 5px; display: inline-block;">Logout</a>
+                </asp:Panel>
             </div>
         </aside>
 
@@ -93,198 +105,32 @@
                 <p>The dedicated members who make SGIPC great</p>
             </section>
 
-            <!-- Leadership Section -->
-            <section class="team-section">
-                <h2>Club Leadership</h2>
-                <div class="team-grid">
-                    <div class="team-member">
-                        <div class="member-image">
-                            <i class="fas fa-user"></i>
+            <!-- Dynamic Team Sections -->
+            <asp:Repeater ID="rptCategories" runat="server">
+                <ItemTemplate>
+                    <section class="team-section">
+                        <h2><%# Container.DataItem.GetType().GetProperty("CategoryName").GetValue(Container.DataItem) %></h2>
+                        <div class="team-grid">
+                            <asp:Repeater ID="rptMembers" DataSource='<%# ((dynamic)Container.DataItem).Members %>' runat="server">
+                                <ItemTemplate>
+                                    <div class="team-member">
+                                        <div class="member-image">
+                                            <i class="fas fa-user"></i>
+                                        </div>
+                                        <h3><%# Container.DataItem["FirstName"] %> <%# Container.DataItem["LastName"] %></h3>
+                                        <p class="member-position"><%# Container.DataItem["Role"] %></p>
+                                        <p class="member-bio">Roll: <%# Container.DataItem["RollNumber"] %> | CSE | <%# Container.DataItem["BatchYear"] %></p>
+                                        <div class="member-socials">
+                                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                                            <a href="#"><i class="fab fa-github"></i></a>
+                                        </div>
+                                    </div>
+                                </ItemTemplate>
+                            </asp:Repeater>
                         </div>
-                        <h3>Niloy Das</h3>
-                        <p class="member-position">President</p>
-                        <p class="member-bio">Roll: 2007086 | CSE | 2k20</p>
-                        <div class="member-socials">
-                            <a href="#"><i class="fab fa-linkedin"></i></a>
-                            <a href="#"><i class="fab fa-github"></i></a>
-                        </div>
-                    </div>
-
-                    <div class="team-member">
-                        <div class="member-image">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <h3>Md. Tanjimul Hasan</h3>
-                        <p class="member-position">Vice President</p>
-                        <p class="member-bio">Roll: 2007081 | CSE | 2k20</p>
-                        <div class="member-socials">
-                            <a href="#"><i class="fab fa-linkedin"></i></a>
-                            <a href="#"><i class="fab fa-github"></i></a>
-                        </div>
-                    </div>
-
-                    <div class="team-member">
-                        <div class="member-image">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <h3>Shah Md Khalil Ullah</h3>
-                        <p class="member-position">Vice President</p>
-                        <p class="member-bio">Roll: 2007090 | CSE | 2k20</p>
-                        <div class="member-socials">
-                            <a href="#"><i class="fab fa-linkedin"></i></a>
-                            <a href="#"><i class="fab fa-github"></i></a>
-                        </div>
-                    </div>
-
-                    <div class="team-member">
-                        <div class="member-image">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <h3>Khadimul Islam Mahi</h3>
-                        <p class="member-position">General Secretary</p>
-                        <p class="member-bio">Roll: 2107076 | CSE | 2k21</p>
-                        <div class="member-socials">
-                            <a href="#"><i class="fab fa-linkedin"></i></a>
-                            <a href="#"><i class="fab fa-github"></i></a>
-                        </div>
-                    </div>
-                    <div class="team-member">
-                        <div class="member-image">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <h3>Mohammad Abu Daud Sharif</h3>
-                        <p class="member-position">Assistant General Secretary</p>
-                        <p class="member-bio">Roll: 2107002 | CSE | 2k21</p>
-                        <div class="member-socials">
-                            <a href="#"><i class="fab fa-linkedin"></i></a>
-                            <a href="#"><i class="fab fa-github"></i></a>
-                        </div>
-                    </div>
-
-                    <div class="team-member">
-                        <div class="member-image">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <h3>Md Umar Faruk</h3>
-                        <p class="member-position">Treasurer</p>
-                        <p class="member-bio">Roll: 2007016 | CSE | 2k20</p>
-                        <div class="member-socials">
-                            <a href="#"><i class="fab fa-linkedin"></i></a>
-                            <a href="#"><i class="fab fa-github"></i></a>
-                        </div>
-                    </div>
-                </div>
-                                    
-            </section>
-
-            <!-- Core Team Section -->
-            <section class="team-section">
-                <h2>Core Team Members</h2>
-                <div class="team-grid large">
-                    <div class="team-member">
-                        <div class="member-image">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <h3>Amit Kairy</h3>
-                        <p class="member-position">Organizing Secretary</p>
-                        <p class="member-bio">Roll: 2007069 | CSE | 2k20</p>
-                    </div>
-
-                    <div class="team-member">
-                        <div class="member-image">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <h3>Md. Ashraful Haque Sifat</h3>
-                        <p class="member-position">Organizing Secretary</p>
-                        <p class="member-bio">Roll: 2007082 | CSE | 2k20</p>
-                    </div>
-
-                    <div class="team-member">
-                        <div class="member-image">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <h3>Siam Arif</h3>
-                        <p class="member-position">Assistant Organizing Secretary</p>
-                        <p class="member-bio">Roll: 2107062 | CSE | 2k21</p>
-                    </div>
-
-                    <div class="team-member">
-                        <div class="member-image">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <h3>Siyam Khan</h3>
-                        <p class="member-position">Assistant Organizing Secretary</p>
-                        <p class="member-bio">Roll: 2107120 | CSE | 2k21</p>
-                    </div>
-
-                    <div class="team-member">
-                        <div class="member-image">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <h3>Abdullah Al Saif</h3>
-                        <p class="member-position">Assistant Organizing Secretary</p>
-                        <p class="member-bio">Roll: 2107017 | CSE | 2k21</p>
-                    </div>
-
-                </div>
-            </section>
-
-            <!-- Performance Analyzers -->
-            <section class="team-section">
-                <h2>Performance Analyzers</h2>
-                <div class="team-grid large">
-                    <div class="team-member">
-                        <div class="member-image">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <h3>Sujoy Sadhu</h3>
-                        <p class="member-position">Performance Analyzer</p>
-                        <p class="member-bio">Roll: 2007019 | CSE | 2k20</p>
-                    </div>
-
-                    <div class="team-member">
-                        <div class="member-image">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <h3>Md. Asif Rahman</h3>
-                        <p class="member-position">Performance Analyzer</p>
-                        <p class="member-bio">Roll: 2007044 | CSE | 2k20</p>
-                    </div>
-
-                    <div class="team-member">
-                        <div class="member-image">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <h3>Md Hafizur Rahman</h3>
-                        <p class="member-position">Performance Analyzer</p>
-                        <p class="member-bio">Roll: 2007080 | CSE | 2k20</p>
-                    </div>
-
-                    <div class="team-member">
-                        <div class="member-image">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <h3>Rahul Sheikh</h3>
-                        <p class="member-position">Performance Analyzer</p>
-                        <p class="member-bio">Roll: 2107063 | CSE | 2k21</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Batch Representatives -->
-            <section class="team-section">
-                <h2>Batch Representatives</h2>
-                <div class="team-grid large">
-                    
-
-                    <div class="team-member">
-                        <div class="member-image">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <h3>Saleque Bin Hossain</h3>
-                        <p class="member-position">Batch Representative (2k21)</p>
-                        <p class="member-bio">Roll: 2107026 | CSE | 2k21</p>
-                    </div>
+                    </section>
+                </ItemTemplate>
+            </asp:Repeater>
 
                     <div class="team-member">
                         <div class="member-image">

@@ -43,7 +43,7 @@ form {
     align-items: center;
     justify-content: space-between;
     padding: 0 52px;
-    z-index: 1000;
+    z-index: 1100;
     border-bottom: 1px solid rgba(190, 120, 255, 0.08);
 }
 
@@ -92,7 +92,10 @@ form {
 
 /* Login / Register */
 .auth-links {
-    display: none;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    z-index: 1101;
 }
 
 .auth-links a {
@@ -111,6 +114,18 @@ form {
     color: #ffffff;
     background: rgba(138, 43, 226, 0.45);
     transform: translateY(-2px);
+}
+
+.user-profile-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+    z-index: 1101;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
 }
 
 /* Sidebar Auth Links */
@@ -472,6 +487,74 @@ form {
     line-height: 1.7;
 }
 
+/* User Profile Header */
+.user-profile-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.profile-icon {
+    font-size: 28px;
+    color: #d7b9ff;
+    flex-shrink: 0;
+}
+
+/* Member Registrations Section */
+.member-registrations {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.07);
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.member-registrations h2 {
+    color: #d7b9ff;
+    font-size: 28px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.registrations-grid {
+    width: 100%;
+    border-collapse: collapse;
+    color: #ffffff;
+}
+
+.grid-header {
+    background: rgba(138, 43, 226, 0.25);
+    padding: 15px;
+    border-bottom: 2px solid rgba(138, 43, 226, 0.5);
+    font-weight: bold;
+    color: #d7b9ff;
+    text-align: left;
+}
+
+.grid-header th {
+    padding: 15px 12px;
+    text-align: left;
+    font-weight: 700;
+    color: #d7b9ff;
+}
+
+.grid-row {
+    border-bottom: 1px solid rgba(190, 120, 255, 0.14);
+    transition: 0.2s ease;
+}
+
+.grid-row:hover {
+    background: rgba(138, 43, 226, 0.10);
+}
+
+.grid-row td {
+    padding: 15px 12px;
+    color: rgba(255, 255, 255, 0.82);
+}
+
 /* Footer */
 .footer {
     color: rgba(255, 255, 255, 0.65);
@@ -489,11 +572,29 @@ form {
     .auth-links {
         display: flex;
         margin-right: 140px;
-        gap: 10px;
+        flex: 1;
+        justify-content: flex-end;
     }
 
     .auth-links a {
         font-size: 13px;
+        padding: 9px 13px;
+    }
+
+    .user-profile-header {
+        max-width: 140px;
+        font-size: 12px;
+    }
+
+    .user-profile-header span {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 12px;
+    }
+
+    .profile-icon {
+        font-size: 24;
         padding: 9px 13px;
     }
 

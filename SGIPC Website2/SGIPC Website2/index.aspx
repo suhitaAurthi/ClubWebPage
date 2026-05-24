@@ -30,8 +30,19 @@
             </div>
 
             <div class="auth-links">
-                <a href="login.aspx">Login</a>
-                <a href="register.aspx">Register</a>
+                <asp:Panel ID="pnlNotLoggedIn" runat="server" Visible="true">
+                    <a href="login.aspx">Login</a>
+                    <a href="register.aspx">Register</a>
+                </asp:Panel>
+                <asp:Panel ID="pnlLoggedIn" runat="server" Visible="false">
+                    <div class="user-profile-header">
+                        <div class="profile-icon">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <span style="color: white; margin-right: 15px;">Welcome, <asp:Label ID="lblUserName" runat="server"></asp:Label></span>
+                    </div>
+                    <a href="logout.aspx">Logout</a>
+                </asp:Panel>
             </div>
 
         </header>
@@ -103,8 +114,14 @@
             </nav>
 
             <div class="sidebar-auth">
-                <a href="login.aspx">Login</a>
-                <a href="register.aspx">Register</a>
+                <asp:Panel ID="pnlSidebarNotLoggedIn" runat="server" Visible="true">
+                    <a href="login.aspx">Login</a>
+                    <a href="register.aspx">Register</a>
+                </asp:Panel>
+                <asp:Panel ID="pnlSidebarLoggedIn" runat="server" Visible="false">
+                    <asp:Label ID="lblSidebarUserName" runat="server" style="display: block; color: #672aa1; font-weight: bold; margin-bottom: 10px;"></asp:Label>
+                    <a href="logout.aspx" style="background-color: #dc3545; color: white; padding: 8px; border-radius: 5px; display: inline-block;">Logout</a>
+                </asp:Panel>
             </div>
 
         </aside>
@@ -161,6 +178,38 @@
                 </div>
 
             </section>
+
+            <!-- Member Registrations Section - Only visible to logged-in users -->
+            <asp:Panel ID="pnlMemberRegistrations" runat="server" Visible="false">
+                <section class="member-registrations">
+                    <h2 style="color: #672aa1; margin-bottom: 20px;">My Event Registrations</h2>
+                    
+                    <asp:Label ID="lblNoRegistrations" runat="server" Visible="false" 
+                        Style="color: #666; font-size: 16px; display: block; text-align: center; padding: 20px;">
+                        You haven't registered for any events yet. <a href="events.aspx" style="color: #672aa1;">View Events</a>
+                    </asp:Label>
+
+                    <asp:GridView ID="gvMemberRegistrations" runat="server" 
+                        CssClass="registrations-grid"
+                        AutoGenerateColumns="False"
+                        GridLines="None"
+                        HeaderStyle-CssClass="grid-header"
+                        RowStyle-CssClass="grid-row">
+                        <Columns>
+                            <asp:BoundField DataField="EventName" HeaderText="Event Name" />
+                            <asp:BoundField DataField="EventType" HeaderText="Type" />
+                            <asp:BoundField DataField="EventDate" HeaderText="Event Date" DataFormatString="{0:yyyy-MM-dd}" />
+                            <asp:BoundField DataField="RegistrationDate" HeaderText="Registered On" DataFormatString="{0:yyyy-MM-dd}" />
+                            <asp:BoundField DataField="Status" HeaderText="Status" />
+                        </Columns>
+                        <EmptyDataTemplate>
+                            <p style="text-align: center; padding: 20px; color: #666;">
+                                No registrations found. <a href="events.aspx" style="color: #672aa1;">Register for an event</a>
+                            </p>
+                        </EmptyDataTemplate>
+                    </asp:GridView>
+                </section>
+            </asp:Panel>
 
         </main>
 

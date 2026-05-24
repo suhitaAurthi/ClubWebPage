@@ -25,8 +25,14 @@
                 </div>
             </div>
             <div class="auth-links">
-                <a href="login.aspx">Login</a>
-                <a href="register.aspx">Register</a>
+                <asp:Panel ID="pnlNotLoggedIn" runat="server" Visible="true">
+                    <a href="login.aspx">Login</a>
+                    <a href="register.aspx">Register</a>
+                </asp:Panel>
+                <asp:Panel ID="pnlLoggedIn" runat="server" Visible="false">
+                    <span style="color: white; margin-right: 15px;">Welcome, <asp:Label ID="lblUserName" runat="server"></asp:Label></span>
+                    <a href="logout.aspx">Logout</a>
+                </asp:Panel>
             </div>
         </header>
 
@@ -80,8 +86,14 @@
                 </a>
             </nav>
             <div class="sidebar-auth">
-                <a href="login.aspx">Login</a>
-                <a href="register.aspx">Register</a>
+                <asp:Panel ID="pnlSidebarNotLoggedIn" runat="server" Visible="true">
+                    <a href="login.aspx">Login</a>
+                    <a href="register.aspx">Register</a>
+                </asp:Panel>
+                <asp:Panel ID="pnlSidebarLoggedIn" runat="server" Visible="false">
+                    <asp:Label ID="lblSidebarUserName" runat="server" style="display: block; color: #672aa1; font-weight: bold; margin-bottom: 10px;"></asp:Label>
+                    <a href="logout.aspx" style="background-color: #dc3545; color: white; padding: 8px; border-radius: 5px; display: inline-block;">Logout</a>
+                </asp:Panel>
             </div>
         </aside>
 
@@ -89,137 +101,163 @@
         <main class="content">
             <!-- Page Header -->
             <section class="page-header">
-                <h1>Photo Gallery</h1>
-                <p>Explore moments from our events and activities</p>
+                <h1>Gallery</h1>
+                <p>Explore our club's achievements, events, and memorable moments</p>
             </section>
 
-            <!-- Gallery Filter -->
-            <section class="gallery-filter">
-                <button class="filter-btn active" data-filter="all">All</button>
-                <button class="filter-btn" data-filter="workshops">Workshops</button>
-                <button class="filter-btn" data-filter="contests">Contests</button>
-                <button class="filter-btn" data-filter="team">Team</button>
-                <button class="filter-btn" data-filter="social">Social</button>
+            <!-- Achievements Section -->
+            <section class="gallery-section">
+                <h2>Achievements</h2>
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <div class="gallery-image">
+                            <img src="Images2/acv.jpg" alt="Achievement" />
+                            <div class="gallery-overlay">
+                                <h4>Best Programming Club Award</h4>
+                                <p>Excellence in technical training and innovation</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item">
+                        <div class="gallery-image">
+                            <img src="Images2/acv2.jpg" alt="Achievement 2" />
+                            <div class="gallery-overlay">
+                                <h4>National Coding Championship</h4>
+                                <p>1st place in regional competition</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item">
+                        <div class="gallery-image">
+                            <img src="Images2/acv3.jpg" alt="Achievement 3" />
+                            <div class="gallery-overlay">
+                                <h4>Members Published Papers</h4>
+                                <p>Research contributions recognized internationally</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item">
+                        <div class="gallery-image">
+                            <img src="Images2/acv4.jpg" alt="Achievement 4" />
+                            <div class="gallery-overlay">
+                                <h4>Algorithm Mastery Certificate</h4>
+                                <p>Training completion milestone reached</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item">
+                        <div class="gallery-image">
+                            <img src="Images2/acv5.jpg" alt="Achievement 5" />
+                            <div class="gallery-overlay">
+                                <h4>Community Service Recognition</h4>
+                                <p>Outstanding contribution to tech education</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item">
+                        <div class="gallery-image">
+                            <img src="Images2/acv6.jpg" alt="Achievement 6" />
+                            <div class="gallery-overlay">
+                                <h4>Innovation Excellence Award</h4>
+                                <p>Pioneering solutions in technology</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item">
+                        <div class="gallery-image">
+                            <img src="Images2/acv7.jpg" alt="Achievement 7" />
+                            <div class="gallery-overlay">
+                                <h4>Student Leadership Recognition</h4>
+                                <p>Exemplary leadership and mentorship</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </section>
 
-            <!-- Gallery Grid -->
-            <section class="gallery-grid">
-                <div class="gallery-item" data-category="workshops">
-                    <div class="gallery-image">
-                        <img src="Images2/hero.png" alt="Workshop Session" />
-                        <div class="gallery-overlay">
-                            <h4>Algorithm Workshop</h4>
-                            <p>March 2026</p>
+            <!-- Workshop Events Section -->
+            <section class="gallery-section">
+                <h2>Workshop Events</h2>
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <div class="gallery-image">
+                            <img src="Images2/ws1.jpg" alt="Workshop 1" />
+                            <div class="gallery-overlay">
+                                <h4>Web Development Workshop</h4>
+                                <p>Hands-on training with React and Node.js</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item">
+                        <div class="gallery-image">
+                            <img src="Images2/ws2.jpg" alt="Workshop 2" />
+                            <div class="gallery-overlay">
+                                <h4>Machine Learning Bootcamp</h4>
+                                <p>Introduction to AI and neural networks</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item">
+                        <div class="gallery-image">
+                            <img src="Images2/ws3.jpg" alt="Workshop 3" />
+                            <div class="gallery-overlay">
+                                <h4>Competitive Programming Course</h4>
+                                <p>Algorithm optimization and problem solving</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item">
+                        <div class="gallery-image">
+                            <img src="Images2/ws4.jpg" alt="Workshop 4" />
+                            <div class="gallery-overlay">
+                                <h4>Database Design Mastery</h4>
+                                <p>SQL optimization and database architecture</p>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </section>
 
-                <div class="gallery-item" data-category="contests">
-                    <div class="gallery-image">
-                        <img src="Images2/hero.png" alt="Contest Day" />
-                        <div class="gallery-overlay">
-                            <h4>Weekly Contest</h4>
-                            <p>April 2026</p>
+            <!-- Team Events Section -->
+            <section class="gallery-section">
+                <h2>Team Events</h2>
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <div class="gallery-image">
+                            <img src="Images2/acv4.jpg" alt="Team Event 1" />
+                            <div class="gallery-overlay">
+                                <h4>Team Building Activity</h4>
+                                <p>Members bonding and networking session</p>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="gallery-item" data-category="workshops">
-                    <div class="gallery-image">
-                        <img src="Images2/hero.png" alt="Training Session" />
-                        <div class="gallery-overlay">
-                            <h4>Data Structure Training</h4>
-                            <p>April 2026</p>
+                    <div class="gallery-item">
+                        <div class="gallery-image">
+                            <img src="Images2/acv5.jpg" alt="Team Event 2" />
+                            <div class="gallery-overlay">
+                                <h4>Hackathon Challenge</h4>
+                                <p>24-hour coding competition with prizes</p>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="gallery-item" data-category="team">
-                    <div class="gallery-image">
-                        <img src="Images2/hero.png" alt="Team Photo" />
-                        <div class="gallery-overlay">
-                            <h4>Team Gathering</h4>
-                            <p>May 2026</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="gallery-item" data-category="contests">
-                    <div class="gallery-image">
-                        <img src="Images2/hero.png" alt="Hackathon" />
-                        <div class="gallery-overlay">
-                            <h4>24-Hour Hackathon</h4>
-                            <p>May 2026</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="gallery-item" data-category="social">
-                    <div class="gallery-image">
-                        <img src="Images2/hero.png" alt="Social Event" />
-                        <div class="gallery-overlay">
-                            <h4>Club Social Event</h4>
-                            <p>May 2026</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="gallery-item" data-category="workshops">
-                    <div class="gallery-image">
-                        <img src="Images2/hero.png" alt="Web Development" />
-                        <div class="gallery-overlay">
-                            <h4>Web Dev Workshop</h4>
-                            <p>May 2026</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="gallery-item" data-category="team">
-                    <div class="gallery-image">
-                        <img src="Images2/hero.png" alt="Leadership Meeting" />
-                        <div class="gallery-overlay">
-                            <h4>Leadership Meeting</h4>
-                            <p>May 2026</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="gallery-item" data-category="contests">
-                    <div class="gallery-image">
-                        <img src="Images2/hero.png" alt="Competition" />
-                        <div class="gallery-overlay">
-                            <h4>Inter-College Competition</h4>
-                            <p>April 2026</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="gallery-item" data-category="social">
-                    <div class="gallery-image">
-                        <img src="Images2/hero.png" alt="Networking Event" />
-                        <div class="gallery-overlay">
-                            <h4>Networking Mixer</h4>
-                            <p>May 2026</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="gallery-item" data-category="workshops">
-                    <div class="gallery-image">
-                        <img src="Images2/hero.png" alt="Code Review" />
-                        <div class="gallery-overlay">
-                            <h4>Code Review Session</h4>
-                            <p>May 2026</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="gallery-item" data-category="team">
-                    <div class="gallery-image">
-                        <img src="Images2/hero.png" alt="Club Members" />
-                        <div class="gallery-overlay">
-                            <h4>All Members Photo</h4>
-                            <p>May 2026</p>
+                    <div class="gallery-item">
+                        <div class="gallery-image">
+                            <img src="Images2/acv.jpg" alt="Team Event 3" />
+                            <div class="gallery-overlay">
+                                <h4>Annual Club Gathering</h4>
+                                <p>Celebration and awards ceremony</p>
+                            </div>
                         </div>
                     </div>
                 </div>

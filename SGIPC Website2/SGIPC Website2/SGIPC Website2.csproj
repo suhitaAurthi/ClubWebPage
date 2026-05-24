@@ -73,10 +73,22 @@
     <Content Include="Content2\register.css" />
     <Content Include="events.aspx" />
     <Content Include="gallery.aspx" />
+    <Content Include="Images2\acv.jpg" />
+    <Content Include="Images2\acv2.jpg" />
+    <Content Include="Images2\acv3.jpg" />
+    <Content Include="Images2\acv4.jpg" />
+    <Content Include="Images2\acv5.jpg" />
+    <Content Include="Images2\acv6.jpg" />
+    <Content Include="Images2\acv7.jpg" />
     <Content Include="Images2\hero.png" />
     <Content Include="Images2\sgipc_logo.png" />
+    <Content Include="Images2\ws1.jpg" />
+    <Content Include="Images2\ws2.jpg" />
+    <Content Include="Images2\ws3.jpg" />
+    <Content Include="Images2\ws4.jpg" />
     <Content Include="index.aspx" />
     <Content Include="login.aspx" />
+    <Content Include="logout.aspx" />
     <Content Include="register.aspx" />
     <Content Include="Scripts\index.js" />
     <Content Include="Scripts\login.js" />
@@ -119,6 +131,13 @@
     </Compile>
     <Compile Include="login.aspx.designer.cs">
       <DependentUpon>login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="logout.aspx.cs">
+      <DependentUpon>logout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="logout.aspx.designer.cs">
+      <DependentUpon>logout.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="register.aspx.cs">

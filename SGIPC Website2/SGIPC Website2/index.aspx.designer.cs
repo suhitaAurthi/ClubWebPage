@@ -22,5 +22,50 @@ namespace SGIPC_Website2
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlForm form2;
+
+        /// <summary>
+        /// pnlNotLoggedIn control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Panel pnlNotLoggedIn;
+
+        /// <summary>
+        /// pnlLoggedIn control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Panel pnlLoggedIn;
+
+        /// <summary>
+        /// lblUserName control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Label lblUserName;
+
+        /// <summary>
+        /// pnlSidebarNotLoggedIn control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Panel pnlSidebarNotLoggedIn;
+
+        /// <summary>
+        /// pnlSidebarLoggedIn control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Panel pnlSidebarLoggedIn;
+
+        /// <summary>
+        /// lblSidebarUserName control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Label lblSidebarUserName;
+
+        /// <summary>
+        /// pnlMemberRegistrations control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Panel pnlMemberRegistrations;
+
+        /// <summary>
+        /// lblNoRegistrations control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Label lblNoRegistrations;
+
+        /// <summary>
+        /// gvMemberRegistrations control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.GridView gvMemberRegistrations;
     }
 }

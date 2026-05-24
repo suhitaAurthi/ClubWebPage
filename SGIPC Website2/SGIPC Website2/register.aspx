@@ -23,21 +23,21 @@
             <div class="form-group">
                 <span class="material-symbols-outlined">badge</span>
                 <label for="fullname">Full Name:</label>
-                <input type="text" id="fullname" runat="server" />
+                <input type="text" id="fullname" runat="server" clientidmode="Static" />
             </div>
 
             <!-- Username Field -->
             <div class="form-group">
                 <span class="material-symbols-outlined">school</span>
                 <label for="roll">Roll:</label>
-                <input type="text" id="roll" runat="server" />
+                <input type="text" id="roll" runat="server" clientidmode="Static" />
             </div>
 
             <!-- Email Field -->
             <div class="form-group">
                 <span class="material-symbols-outlined">mail</span>
                 <label for="email">Email:</label>
-                <input type="email" id="email" runat="server" />
+                <input type="email" id="email" runat="server" clientidmode="Static" />
             </div>
 
             <!-- Password Field -->
@@ -56,9 +56,13 @@
 
             <small id="confirmPasswordError" class="error"></small>
 
-
             <!-- Register Button -->
-            <button type="submit" class="btn">Register</button>
+            <asp:Button 
+                ID="btnRegister" 
+                runat="server" 
+                Text="Register" 
+                CssClass="btn" 
+                OnClick="btnRegister_Click" />
 
             <!-- Login Link -->
             <div class="login-link">
