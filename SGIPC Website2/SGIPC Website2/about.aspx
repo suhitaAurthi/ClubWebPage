@@ -84,6 +84,10 @@
                     <i class="fas fa-people-group"></i>
                     <span>Team</span>
                 </a>
+                <a href="member.aspx" class="sidebar-link">
+                    <i class="fas fa-users"></i>
+                    <span>Members</span>
+                </a>
             </nav>
             <div class="sidebar-auth">
                 <asp:Panel ID="pnlSidebarNotLoggedIn" runat="server" Visible="true">

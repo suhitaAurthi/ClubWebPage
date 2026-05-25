@@ -84,6 +84,10 @@
                     <i class="fas fa-people-group"></i>
                     <span>Team</span>
                 </a>
+                <a href="member.aspx" class="sidebar-link">
+                    <i class="fas fa-users"></i>
+                    <span>Members</span>
+                </a>
             </nav>
             <div class="sidebar-auth">
                 <asp:Panel ID="pnlSidebarNotLoggedIn" runat="server" Visible="true">
@@ -114,95 +118,125 @@
             <!-- Event Management Form (Hidden by default) -->
             <section id="eventManagementForm" class="event-management-section" style="display: none;">
                 <div class="management-container">
-                    <h2>Create/Edit Event</h2>
+                    <div class="form-header">
+                        <h2>Create/Edit Event</h2>
+                        <button type="button" id="closeFormBtn" class="close-form-btn" title="Close">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
                     <form id="eventForm" class="event-form">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="eventTitle">Event Title <span class="required">*</span></label>
-                                <input type="text" id="eventTitle" placeholder="e.g., Algorithm Bootcamp" required />
+                        <!-- Basic Information Section -->
+                        <div class="form-section">
+                            <h3 class="section-title">Event Details</h3>
+                            <div class="form-row">
+                                <div class="form-group full-width">
+                                    <label for="eventTitle">Event Title <span class="required">*</span></label>
+                                    <input type="text" id="eventTitle" placeholder="e.g., Algorithm Bootcamp" required />
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group full-width">
+                                    <label for="eventDescription">Description <span class="required">*</span></label>
+                                    <textarea id="eventDescription" placeholder="Provide a detailed description of the event..." required rows="5"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="eventType">Event Type <span class="required">*</span></label>
+                                    <select id="eventType" required>
+                                        <option value="">Select Type</option>
+                                        <option value="normal">Normal Event</option>
+                                        <option value="team">Team Event</option>
+                                        <option value="contest">Contest</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="eventLocation">Location <span class="required">*</span></label>
+                                    <input type="text" id="eventLocation" placeholder="e.g., Main Hall / Online" required />
+                                </div>
                             </div>
                         </div>
 
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="eventDescription">Description <span class="required">*</span></label>
-                                <textarea id="eventDescription" placeholder="Event description..." required rows="4"></textarea>
+                        <!-- Date and Time Section -->
+                        <div class="form-section">
+                            <h3 class="section-title">Date & Time</h3>
+                            <div class="form-row three-cols">
+                                <div class="form-group">
+                                    <label for="eventDate">Event Date <span class="required">*</span></label>
+                                    <input type="date" id="eventDate" required />
+                                    <small class="form-hint">Select the date when the event will occur</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="startTime">Start Time <span class="required">*</span></label>
+                                    <input type="time" id="startTime" required />
+                                    <small class="form-hint">When the event starts</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="endTime">End Time <span class="required">*</span></label>
+                                    <input type="time" id="endTime" required />
+                                    <small class="form-hint">When the event ends</small>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="eventType">Event Type <span class="required">*</span></label>
-                                <select id="eventType" required>
-                                    <option value="">Select Type</option>
-                                    <option value="normal">Normal Event</option>
-                                    <option value="team">Team Event</option>
-                                    <option value="contest">Contest</option>
-                                </select>
+                        <!-- Registration Section -->
+                        <div class="form-section">
+                            <h3 class="section-title">Registration & Links</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="registrationStatus">Registration Status <span class="required">*</span></label>
+                                    <select id="registrationStatus" required>
+                                        <option value="">Select Status</option>
+                                        <option value="open">Open</option>
+                                        <option value="closed">Closed</option>
+                                        <option value="coming-soon">Coming Soon</option>
+                                    </select>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="eventDate">Event Date <span class="required">*</span></label>
-                                <input type="date" id="eventDate" required />
+
+                            <div class="form-row">
+                                <div class="form-group full-width">
+                                    <label for="registrationLink">Registration Link</label>
+                                    <input type="url" id="registrationLink" placeholder="https://forms.gle/..." />
+                                    <small class="form-hint">Google Form or registration page link</small>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group full-width">
+                                    <label for="contestLink">
+                                        <i class="fas fa-trophy"></i> Contest/Judge Link
+                                    </label>
+                                    <input type="url" id="contestLink" placeholder="https://vjudge.net/contest/... or https://codeforces.com/..." />
+                                    <small class="form-hint">Link to online judge or contest platform (for contests only)</small>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="startTime">Start Time <span class="required">*</span></label>
-                                <input type="time" id="startTime" required />
-                            </div>
-                            <div class="form-group">
-                                <label for="endTime">End Time <span class="required">*</span></label>
-                                <input type="time" id="endTime" required />
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="eventLocation">Location <span class="required">*</span></label>
-                                <input type="text" id="eventLocation" placeholder="e.g., Main Hall" required />
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="registrationStatus">Registration Status <span class="required">*</span></label>
-                                <select id="registrationStatus" required>
-                                    <option value="">Select Status</option>
-                                    <option value="open">Open</option>
-                                    <option value="closed">Closed</option>
-                                    <option value="coming-soon">Coming Soon</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="registrationLink">Registration Link</label>
-                                <input type="url" id="registrationLink" placeholder="https://forms.gle/..." />
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="contestLink">Contest Link</label>
-                                <input type="url" id="contestLink" placeholder="https://vjudge.net/..." />
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="publishStatus">Publish Status <span class="required">*</span></label>
-                                <select id="publishStatus" required>
-                                    <option value="published">Published</option>
-                                    <option value="unpublished">Unpublished</option>
-                                </select>
+                        <!-- Publication Section -->
+                        <div class="form-section">
+                            <h3 class="section-title">Publication</h3>
+                            <div class="form-row">
+                                <div class="form-group full-width">
+                                    <label for="publishStatus">Publish Status <span class="required">*</span></label>
+                                    <select id="publishStatus" required>
+                                        <option value="unpublished">Unpublished (Draft)</option>
+                                        <option value="published">Published</option>
+                                    </select>
+                                    <small class="form-hint">Published events are visible to all members</small>
+                                </div>
                             </div>
                         </div>
 
                         <div class="form-actions">
-                            <button type="submit" class="btn-primary">Save Event</button>
-                            <button type="button" id="cancelEventBtn" class="btn-secondary">Cancel</button>
+                            <button type="submit" class="btn-primary">
+                                <i class="fas fa-save"></i> Save Event
+                            </button>
+                            <button type="button" id="cancelEventBtn" class="btn-secondary">
+                                <i class="fas fa-times"></i> Cancel
+                            </button>
                         </div>
                     </form>
                 </div>

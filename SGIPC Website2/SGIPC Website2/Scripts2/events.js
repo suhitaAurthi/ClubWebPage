@@ -28,6 +28,11 @@ const currentUser = {
 
 // Check if current user is an approved team member
 function isApprovedTeamMember() {
+    // Use backend-verified team member status if available
+    if (typeof isCurrentUserTeamMember !== 'undefined') {
+        return isCurrentUserTeamMember;
+    }
+    // Fallback to checking hardcoded list (for backwards compatibility)
     return approvedTeamMembers.some(member =>
         member.email.toLowerCase() === currentUser.email.toLowerCase()
     );
@@ -477,6 +482,10 @@ function toggleEventForm() {
         form.style.display = isVisible ? 'none' : 'block';
         if (!isVisible) {
             clearEventForm();
+            // Scroll to form
+            setTimeout(() => {
+                form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
         }
     }
 }
@@ -489,7 +498,7 @@ function clearEventForm() {
     }
     const submitBtn = document.querySelector('#eventForm button[type="submit"]');
     if (submitBtn) {
-        submitBtn.textContent = 'Save Event';
+        submitBtn.innerHTML = '<i class="fas fa-save"></i> Save Event';
     }
 }
 
@@ -512,10 +521,14 @@ function editEventClick(eventId) {
     
     // Mark form for editing
     document.getElementById('eventForm').setAttribute('data-event-id', eventId);
-    document.querySelector('#eventForm button[type="submit"]').textContent = 'Update Event';
+    const submitBtn = document.querySelector('#eventForm button[type="submit"]');
+    if (submitBtn) {
+        submitBtn.innerHTML = '<i class="fas fa-pen"></i> Update Event';
+    }
     
     // Show form
     document.getElementById('eventManagementForm').style.display = 'block';
+    document.getElementById('eventManagementForm').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 function deleteEventClick(eventId) {
@@ -566,6 +579,16 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log("Event listener attached to createBtn");
     }
     
+    // Handle close form button
+    const closeFormBtn = document.getElementById('closeFormBtn');
+    if (closeFormBtn) {
+        closeFormBtn.addEventListener('click', function() {
+            console.log("Close Form button clicked");
+            document.getElementById('eventManagementForm').style.display = 'none';
+            clearEventForm();
+        });
+    }
+    
     const cancelBtn = document.getElementById('cancelEventBtn');
     if (cancelBtn) {
         cancelBtn.addEventListener('click', function() {
@@ -601,6 +624,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 isPublished: document.getElementById('publishStatus').value === 'published'
             };
             
+            // Validate dates and times
+            if (new Date(eventData.eventDate + 'T' + eventData.startTime) >= new Date(eventData.eventDate + 'T' + eventData.endTime)) {
+                alert('Error: End time must be after start time!');
+                return;
+            }
+            
+            if (eventData.eventType === 'contest' && !eventData.contestLink) {
+                alert('Error: Contest events require a contest link!');
+                return;
+            }
+            
             console.log("eventData:", eventData);
             
             let success = false;
@@ -608,12 +642,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Edit existing event
                 console.log("Editing event:", eventId);
                 success = editEvent(parseInt(eventId), eventData);
-                if (success) alert('Event updated successfully!');
+                if (success) {
+                    alert('✓ Event updated successfully!');
+                }
             } else {
                 // Create new event
                 console.log("Creating new event");
                 success = createEvent(eventData);
-                if (success) alert('Event created successfully!');
+                if (success) {
+                    alert('✓ Event created successfully!');
+                }
             }
             
             console.log("success:", success);

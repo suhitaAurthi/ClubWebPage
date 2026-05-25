@@ -27,6 +27,7 @@ namespace SGIPC_Website2
                 {
                     int userId = Convert.ToInt32(Session["UserId"]);
                     string userName = Session["UserName"] != null ? Session["UserName"].ToString() : "User";
+                    string userEmail = Session["UserEmail"] != null ? Session["UserEmail"].ToString() : "";
                     
                     if (pnlNotLoggedIn != null) pnlNotLoggedIn.Visible = false;
                     if (pnlSidebarNotLoggedIn != null) pnlSidebarNotLoggedIn.Visible = false;
@@ -37,9 +38,10 @@ namespace SGIPC_Website2
                     
                     // Check if user is a team member for event creation access
                     bool isTeamMember = IsTeamMember(userId);
-                    // Pass to JavaScript using hidden field or directly in page markup
-                    Page.ClientScript.RegisterStartupScript(this.GetType(), "isTeamMember", 
-                        $"var isCurrentUserTeamMember = {(isTeamMember ? "true" : "false")};", true);
+                    // Pass user info to JavaScript so events.js has accurate currentUser data
+                    string userScript = $@"var isCurrentUserTeamMember = {(isTeamMember ? "true" : "false")};
+                    var currentUser = {{ name: '{EscapeJsString(userName)}', email: '{EscapeJsString(userEmail)}' }};";
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "isTeamMember", userScript, true);
                 }
                 else
                 {
@@ -52,7 +54,7 @@ namespace SGIPC_Website2
                         "var isCurrentUserTeamMember = false;", true);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Control handling
             }
@@ -93,7 +95,7 @@ namespace SGIPC_Website2
                         // For now, the HTML form handles display through JavaScript
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     // Log error
                 }
@@ -128,7 +130,7 @@ namespace SGIPC_Website2
                         return false;
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     return false;
                 }
@@ -177,7 +179,7 @@ namespace SGIPC_Website2
                         }
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     // Return error
                 }
@@ -243,7 +245,7 @@ namespace SGIPC_Website2
                         }
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     // Return error
                 }
@@ -251,6 +253,22 @@ namespace SGIPC_Website2
 
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             return serializer.Serialize(events);
+        }
+
+        /// <summary>
+        /// Escapes special characters in a string for safe JavaScript literal use
+        /// </summary>
+        private string EscapeJsString(string str)
+        {
+            if (string.IsNullOrEmpty(str))
+                return "";
+            
+            return str.Replace("\\", "\\\\")
+                      .Replace("\"", "\\\"")
+                      .Replace("'", "\\'")
+                      .Replace("\n", "\\n")
+                      .Replace("\r", "\\r")
+                      .Replace("\t", "\\t");
         }
     }
 }

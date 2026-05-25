@@ -11,7 +11,7 @@ namespace SGIPC_Website2
 {
 
 
-    public partial class team
+    public partial class member
     {
 
         /// <summary>
@@ -26,36 +26,65 @@ namespace SGIPC_Website2
         /// <summary>
         /// pnlNotLoggedIn control.
         /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlNotLoggedIn;
 
         /// <summary>
         /// pnlLoggedIn control.
         /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlLoggedIn;
 
         /// <summary>
         /// lblUserName control.
         /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblUserName;
 
         /// <summary>
         /// pnlSidebarNotLoggedIn control.
         /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlSidebarNotLoggedIn;
 
         /// <summary>
         /// pnlSidebarLoggedIn control.
         /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlSidebarLoggedIn;
 
         /// <summary>
         /// lblSidebarUserName control.
         /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblSidebarUserName;
 
         /// <summary>
-        /// rptCategories control.
+        /// rptRegisteredMembers control.
         /// </summary>
-        protected global::System.Web.UI.WebControls.Repeater rptCategories;
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptRegisteredMembers;
     }
 }
+

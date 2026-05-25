@@ -84,6 +84,10 @@
                     <i class="fas fa-people-group"></i>
                     <span>Team</span>
                 </a>
+                <a href="member.aspx" class="sidebar-link">
+                    <i class="fas fa-users"></i>
+                    <span>Members</span>
+                </a>
             </nav>
             <div class="sidebar-auth">
                 <asp:Panel ID="pnlSidebarNotLoggedIn" runat="server" Visible="true">
@@ -109,17 +113,17 @@
             <asp:Repeater ID="rptCategories" runat="server">
                 <ItemTemplate>
                     <section class="team-section">
-                        <h2><%# Container.DataItem.GetType().GetProperty("CategoryName").GetValue(Container.DataItem) %></h2>
+                        <h2><%# Eval("CategoryName") %></h2>
                         <div class="team-grid">
-                            <asp:Repeater ID="rptMembers" DataSource='<%# ((dynamic)Container.DataItem).Members %>' runat="server">
+                            <asp:Repeater ID="rptMembers" DataSource='<%# ((SGIPC_Website2.TeamCategory)Container.DataItem).Members %>' runat="server">
                                 <ItemTemplate>
                                     <div class="team-member">
                                         <div class="member-image">
                                             <i class="fas fa-user"></i>
                                         </div>
-                                        <h3><%# Container.DataItem["FirstName"] %> <%# Container.DataItem["LastName"] %></h3>
-                                        <p class="member-position"><%# Container.DataItem["Role"] %></p>
-                                        <p class="member-bio">Roll: <%# Container.DataItem["RollNumber"] %> | CSE | <%# Container.DataItem["BatchYear"] %></p>
+                                        <h3><%# Eval("FirstName") %> <%# Eval("LastName") %></h3>
+                                        <p class="member-position"><%# Eval("Role") %></p>
+                                        <p class="member-bio">Roll: <%# Eval("RollNumber") %> | CSE | <%# Eval("BatchYear") %></p>
                                         <div class="member-socials">
                                             <a href="#"><i class="fab fa-linkedin"></i></a>
                                             <a href="#"><i class="fab fa-github"></i></a>
@@ -132,30 +136,10 @@
                 </ItemTemplate>
             </asp:Repeater>
 
-                    <div class="team-member">
-                        <div class="member-image">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <h3>Alok Baul(Turjo)</h3>
-                        <p class="member-position">Batch Representative (2k22)</p>
-                        <p class="member-bio">Roll: 2207098 | CSE | 2k22</p>
-                    </div>
-
-                    <div class="team-member">
-                        <div class="member-image">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <h3>Md Farhan Ishraq</h3>
-                        <p class="member-position">Batch Representative (2k23)</p>
-                        <p class="member-bio">Roll: 2307012 | CSE | 2k23</p>
-                    </div>
-                </div>
-            </section>
-
             <!-- Senior Mentors -->
             <section class="team-section">
                 <h2>Senior Mentor for Boys</h2>
-                <div class="team-grid large">
+                <div class="team-grid">
                     <div class="team-member">
                         <div class="member-image">
                             <i class="fas fa-user"></i>
@@ -188,7 +172,7 @@
             <!-- Junior Mentors -->
             <section class="team-section">
                 <h2>Junior Mentor For Boys</h2>
-                <div class="team-grid large">
+                <div class="team-grid">
                     <div class="team-member">
                         <div class="member-image">
                             <i class="fas fa-user"></i>
@@ -212,7 +196,7 @@
             <!-- Contest Manager -->
             <section class="team-section">
                 <h2>Contest Manager</h2>
-                <div class="team-grid large">
+                <div class="team-grid">
                     <div class="team-member">
                         <div class="member-image">
                             <i class="fas fa-user"></i>
@@ -236,7 +220,7 @@
             <!-- Assistant Contest Manager -->
             <section class="team-section">
                 <h2>Assistant Contest Manager</h2>
-                <div class="team-grid large">
+                <div class="team-grid">
                     <div class="team-member">
                         <div class="member-image">
                             <i class="fas fa-user"></i>
@@ -278,7 +262,7 @@
             <!-- Workshop Manager -->
             <section class="team-section">
                 <h2>Workshop Manager</h2>
-                <div class="team-grid large">
+                <div class="team-grid">
                     <div class="team-member">
                         <div class="member-image">
                             <i class="fas fa-user"></i>
@@ -311,7 +295,7 @@
             <!-- Assistant Workshop Manager -->
             <section class="team-section">
                 <h2>Assistant Workshop Manager</h2>
-                <div class="team-grid large">
+                <div class="team-grid">
                     <div class="team-member">
                         <div class="member-image">
                             <i class="fas fa-user"></i>
@@ -353,7 +337,7 @@
             <!-- Editorial Manager -->
             <section class="team-section">
                 <h2>Editorial Manager</h2>
-                <div class="team-grid large">
+                <div class="team-grid">
                     <div class="team-member">
                         <div class="member-image">
                             <i class="fas fa-user"></i>
@@ -377,7 +361,7 @@
             <!-- Assistant Editorial Manager -->
             <section class="team-section">
                 <h2>Assistant Editorial Manager</h2>
-                <div class="team-grid large">
+                <div class="team-grid">
                     <div class="team-member">
                         <div class="member-image">
                             <i class="fas fa-user"></i>
@@ -398,7 +382,199 @@
 
         </main>
 
+        <!-- Edit Member Modal -->
+        <div id="editMemberModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Edit Member</h3>
+                    <button class="close-btn" onclick="closeEditModal()">&times;</button>
+                </div>
+                <form id="editForm" style="display: none;">
+                    <input type="hidden" id="editUserId" />
+                    <div class="form-group">
+                        <label for="editUsername">Full Name</label>
+                        <input type="text" id="editUsername" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="editEmail">Email</label>
+                        <input type="email" id="editEmail" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="editRoll">Roll Number</label>
+                        <input type="text" id="editRoll" required />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn-primary">Save Changes</button>
+                        <button type="button" class="btn-secondary" onclick="closeEditModal()">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Show User Events Modal -->
+        <div id="userEventsModal" class="modal" style="display: none;">
+            <div class="modal-content modal-large">
+                <div class="modal-header">
+                    <h3>Registered Contests & Workshops - <span id="eventUserName"></span></h3>
+                    <button class="close-btn" onclick="closeEventsModal()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div id="eventsList" class="events-list">
+                        <p class="loading-text">Loading events...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2026 SGIPC. All rights reserved.</p>
+        </footer>
+
+    </form>
+
+    <script src="Scripts2/index.js"></script>
+    <script>
+        // Members management functions
+        function editMember(userId, username, email, roll) {
+            var editUserIdInput = document.getElementById('editUserId');
+            var editUsernameInput = document.getElementById('editUsername');
+            var editEmailInput = document.getElementById('editEmail');
+            var editRollInput = document.getElementById('editRoll');
+            var editMemberModal = document.getElementById('editMemberModal');
+            var editForm = document.getElementById('editForm');
+            
+            if (editUserIdInput) {
+                (editUserIdInput).value = userId;
+            }
+            if (editUsernameInput) {
+                (editUsernameInput).value = username;
+            }
+            if (editEmailInput) {
+                (editEmailInput).value = email;
+            }
+            if (editRollInput) {
+                (editRollInput).value = roll;
+            }
+            if (editMemberModal) {
+                editMemberModal.style.display = 'block';
+            }
+            if (editForm) {
+                editForm.style.display = 'block';
+            }
+        }
+
+        function closeEditModal() {
+            var editMemberModal = document.getElementById('editMemberModal');
+            var editForm = document.getElementById('editForm');
+            
+            if (editMemberModal) {
+                editMemberModal.style.display = 'none';
+            }
+            if (editForm) {
+                (editForm).reset();
+            }
+        }
+
+        function showUserEvents(userId, userName) {
+            var userEventsModal = document.getElementById('userEventsModal');
+            var eventUserName = document.getElementById('eventUserName');
+            var eventsList = document.getElementById('eventsList');
+            
+            if (eventUserName) {
+                eventUserName.textContent = userName;
+            }
+            if (eventsList) {
+                eventsList.innerHTML = '<p class="loading-text">Loading events...</p>';
+            }
+            if (userEventsModal) {
+                userEventsModal.style.display = 'block';
+            }
+        }
+
+        function closeEventsModal() {
+            var userEventsModal = document.getElementById('userEventsModal');
+            if (userEventsModal) {
+                userEventsModal.style.display = 'none';
+            }
+        }
+
+        function deleteMember(userId) {
+            if (confirm('Are you sure you want to delete this member?')) {
+                fetch('team.aspx?action=delete&userId=' + userId, { method: 'POST' })
+                    .then(function(response) {
+                        if (response.ok) {
+                            alert('Member deleted successfully!');
+                            location.reload();
+                        }
+                    })
+                    .catch(function(error) {
+                        alert('Error deleting member: ' + error);
+                    });
+            }
+        }
+
+        // Handle edit form submission
+        document.addEventListener('DOMContentLoaded', function() {
+            var editForm = document.getElementById('editForm');
+            if (editForm) {
+                editForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    var userIdInput = document.getElementById('editUserId');
+                    var usernameInput = document.getElementById('editUsername');
+                    var emailInput = document.getElementById('editEmail');
+                    var rollInput = document.getElementById('editRoll');
+                    
+                    var userId = (userIdInput).value;
+                    var username = (usernameInput).value;
+                    var email = (emailInput).value;
+                    var roll = (rollInput).value;
+
+                    var formData = new FormData();
+                    formData.append('action', 'update');
+                    formData.append('userId', userId);
+                    formData.append('username', username);
+                    formData.append('email', email);
+                    formData.append('roll', roll);
+
+                    fetch('team.aspx', { method: 'POST', body: formData })
+                        .then(function(response) {
+                            if (response.ok) {
+                                alert('Member updated successfully!');
+                                location.reload();
+                            }
+                        })
+                        .catch(function(error) {
+                            alert('Error updating member: ' + error);
+                        });
+                });
+            }
+
+            // Close modal when clicking outside of it
+            window.onclick = function(event) {
+                var editModal = document.getElementById('editMemberModal');
+                var eventsModal = document.getElementById('userEventsModal');
+                if (event.target === editModal && editModal) {
+                    editModal.style.display = 'none';
+                }
+                if (event.target === eventsModal && eventsModal) {
+                    eventsModal.style.display = 'none';
+                }
+            };
+        });
+    </script>
+</body>
+
+            <!-- Join Us Section -->
+            <!-- <section class="join-section">
+                <h2>Interested in Joining?</h2>
+                <p>We're always looking for passionate programmers and enthusiasts to join our team!</p>
+                <a href="register.aspx" class="register-button">Register Now</a>
+            </section>
+
+        </main>  -->
+
+       <!--Footer-->
         <footer class="footer">
             <p>&copy; 2026 SGIPC. All rights reserved.</p>
         </footer>

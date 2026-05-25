@@ -1,12 +1,15 @@
 -- =====================================================
--- SGIPC Website - Team Members Setup
--- Insert Query for TeamMembers Table
+-- SGIPC Website - Complete Team Members Setup
+-- RUN THIS SINGLE FILE - It does everything!
 -- =====================================================
 
 USE ClubProjDB;
 GO
 
--- Create TeamMembers table (Add to existing database)
+-- =====================================================
+-- STEP 1: Create TeamMembers table if it doesn't exist
+-- =====================================================
+
 IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'TeamMembers')
 BEGIN
     CREATE TABLE TeamMembers (
@@ -26,12 +29,183 @@ BEGIN
 END
 ELSE
 BEGIN
-    PRINT 'TeamMembers table already exists. Make sure Category, RollNumber, and BatchYear columns exist.';
-    PRINT 'If not, run SQL_Add_TeamMembers_Columns.sql first.';
+    PRINT 'TeamMembers table already exists. Adding missing columns...';
+    
+    -- Add Category column
+    IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'TeamMembers' AND COLUMN_NAME = 'Category')
+    BEGIN
+        ALTER TABLE TeamMembers ADD Category NVARCHAR(100);
+        PRINT 'Column Category added.';
+    END;
+    
+    -- Add RollNumber column
+    IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'TeamMembers' AND COLUMN_NAME = 'RollNumber')
+    BEGIN
+        ALTER TABLE TeamMembers ADD RollNumber NVARCHAR(20);
+        PRINT 'Column RollNumber added.';
+    END;
+    
+    -- Add BatchYear column
+    IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'TeamMembers' AND COLUMN_NAME = 'BatchYear')
+    BEGIN
+        ALTER TABLE TeamMembers ADD BatchYear NVARCHAR(10);
+        PRINT 'Column BatchYear added.';
+    END;
 END;
 
+GO
+
 -- =====================================================
--- INSERT ALL TEAM MEMBERS DATA
+-- STEP 2: Delete existing data to avoid duplicates
+-- =====================================================
+
+DELETE FROM TeamMembers WHERE Email LIKE '%@stud.kuet.ac.bd%';
+PRINT 'Cleared existing team member data.';
+
+GO
+
+-- =====================================================
+-- STEP 3: Insert All Team Members Data
+-- =====================================================
+
+-- Leadership Team
+INSERT INTO TeamMembers (FirstName, LastName, Email, Role, Category, RollNumber, BatchYear, PhoneNumber, IsActive)
+VALUES ('Nilay', 'Das', 'nilay@stud.kuet.ac.bd', 'President', 'Club Leadership', '2007086', '2k20', '+8801700000001', 1);
+
+INSERT INTO TeamMembers (FirstName, LastName, Email, Role, Category, RollNumber, BatchYear, PhoneNumber, IsActive)
+VALUES ('Md. Tanjimul', 'Hasan', 'tanjimul@stud.kuet.ac.bd', 'Vice President', 'Club Leadership', '2007081', '2k20', '+8801700000002', 1);
+
+INSERT INTO TeamMembers (FirstName, LastName, Email, Role, Category, RollNumber, BatchYear, PhoneNumber, IsActive)
+VALUES ('Shah Md', 'Khalil Ullah', 'khalil@stud.kuet.ac.bd', 'Vice President', 'Club Leadership', '2007090', '2k20', '+8801700000003', 1);
+
+INSERT INTO TeamMembers (FirstName, LastName, Email, Role, Category, RollNumber, BatchYear, PhoneNumber, IsActive)
+VALUES ('Khadimul', 'Islam Mahi', 'mahi@stud.kuet.ac.bd', 'General Secretary', 'Club Leadership', '2107076', '2k21', '+8801700000004', 1);
+
+INSERT INTO TeamMembers (FirstName, LastName, Email, Role, Category, RollNumber, BatchYear, PhoneNumber, IsActive)
+VALUES ('Mohammad Abu Daud', 'Sharif', 'sharif@stud.kuet.ac.bd', 'Assistant General Secretary', 'Club Leadership', '2107002', '2k21', '+8801700000005', 1);
+
+INSERT INTO TeamMembers (FirstName, LastName, Email, Role, Category, RollNumber, BatchYear, PhoneNumber, IsActive)
+VALUES ('Md', 'Umar Faruk', 'faruk@stud.kuet.ac.bd', 'Treasurer', 'Club Leadership', '2007016', '2k20', '+8801700000006', 1);
+
+-- Core Team Members
+INSERT INTO TeamMembers (FirstName, LastName, Email, Role, Category, RollNumber, BatchYear, PhoneNumber, IsActive)
+VALUES ('Amit', 'Kairy', 'amit@stud.kuet.ac.bd', 'Organizing Secretary', 'Core Team Members', '2007069', '2k20', '+8801700000007', 1);
+
+INSERT INTO TeamMembers (FirstName, LastName, Email, Role, Category, RollNumber, BatchYear, PhoneNumber, IsActive)
+VALUES ('Md. Ashraful', 'Haque Sifat', 'sifat@stud.kuet.ac.bd', 'Organizing Secretary', 'Core Team Members', '2007082', '2k20', '+8801700000008', 1);
+
+INSERT INTO TeamMembers (FirstName, LastName, Email, Role, Category, RollNumber, BatchYear, PhoneNumber, IsActive)
+VALUES ('Siam', 'Arif', 'siam@stud.kuet.ac.bd', 'Assistant Organizing Secretary', 'Core Team Members', '2107062', '2k21', '+8801700000009', 1);
+
+INSERT INTO TeamMembers (FirstName, LastName, Email, Role, Category, RollNumber, BatchYear, PhoneNumber, IsActive)
+VALUES ('Siyam', 'Khan', 'siyam@stud.kuet.ac.bd', 'Assistant Organizing Secretary', 'Core Team Members', '2107120', '2k21', '+8801700000010', 1);
+
+INSERT INTO TeamMembers (FirstName, LastName, Email, Role, Category, RollNumber, BatchYear, PhoneNumber, IsActive)
+VALUES ('Abdullah Al', 'Saif', 'saif@stud.kuet.ac.bd', 'Assistant Organizing Secretary', 'Core Team Members', '2107017', '2k21', '+8801700000011', 1);
+
+-- Performance Analyzers
+INSERT INTO TeamMembers (FirstName, LastName, Email, Role, Category, RollNumber, BatchYear, PhoneNumber, IsActive)
+VALUES ('Sujoy', 'Sadhu', 'sujoy@stud.kuet.ac.bd', 'Performance Analyzer', 'Performance Analyzers', '2007019', '2k20', '+8801700000012', 1);
+
+INSERT INTO TeamMembers (FirstName, LastName, Email, Role, Category, RollNumber, BatchYear, PhoneNumber, IsActive)
+VALUES ('Md. Asif', 'Rahman', 'asif@stud.kuet.ac.bd', 'Performance Analyzer', 'Performance Analyzers', '2007044', '2k20', '+8801700000013', 1);
+
+INSERT INTO TeamMembers (FirstName, LastName, Email, Role, Category, RollNumber, BatchYear, PhoneNumber, IsActive)
+VALUES ('Md', 'Hafizur Rahman', 'hafizur@stud.kuet.ac.bd', 'Performance Analyzer', 'Performance Analyzers', '2007080', '2k20', '+8801700000014', 1);
+
+INSERT INTO TeamMembers (FirstName, LastName, Email, Role, Category, RollNumber, BatchYear, PhoneNumber, IsActive)
+VALUES ('Rahul', 'Sheikh', 'rahul@stud.kuet.ac.bd', 'Performance Analyzer', 'Performance Analyzers', '2107063', '2k21', '+8801700000015', 1);
+
+-- Batch Representatives
+INSERT INTO TeamMembers (FirstName, LastName, Email, Role, Category, RollNumber, BatchYear, PhoneNumber, IsActive)
+VALUES ('Saleque Bin', 'Hossain', 'saleque@stud.kuet.ac.bd', 'Batch Representative (2k21)', 'Batch Representatives', '2107026', '2k21', '+8801700000016', 1);
+
+INSERT INTO TeamMembers (FirstName, LastName, Email, Role, Category, RollNumber, BatchYear, PhoneNumber, IsActive)
+VALUES ('Alok', 'Baul', 'alok@stud.kuet.ac.bd', 'Batch Representative (2k22)', 'Batch Representatives', '2207098', '2k22', '+8801700000017', 1);
+
+INSERT INTO TeamMembers (FirstName, LastName, Email, Role, Category, RollNumber, BatchYear, PhoneNumber, IsActive)
+VALUES ('Md', 'Farhan Ishraq', 'farhan@stud.kuet.ac.bd', 'Batch Representative (2k23)', 'Batch Representatives', '2307012', '2k23', '+8801700000018', 1);
+
+-- Senior Mentors
+INSERT INTO TeamMembers (FirstName, LastName, Email, Role, Category, RollNumber, BatchYear, PhoneNumber, IsActive)
+VALUES ('Md', 'Babla Islam', 'babla@stud.kuet.ac.bd', 'Senior Mentor for Boys', 'Senior Mentor for Boys', '2007045', '2k20', '+8801700000019', 1);
+
+INSERT INTO TeamMembers (FirstName, LastName, Email, Role, Category, RollNumber, BatchYear, PhoneNumber, IsActive)
+VALUES ('Md', 'Raihan Hossain Rakib', 'raihan@stud.kuet.ac.bd', 'Senior Mentor for Boys', 'Senior Mentor for Boys', '2007005', '2k20', '+8801700000020', 1);
+
+INSERT INTO TeamMembers (FirstName, LastName, Email, Role, Category, RollNumber, BatchYear, PhoneNumber, IsActive)
+VALUES ('Rauful', 'Islam Tamum', 'rauful@stud.kuet.ac.bd', 'Senior Mentor for Boys', 'Senior Mentor for Boys', '2007009', '2k20', '+8801700000021', 1);
+
+-- Junior Mentors
+INSERT INTO TeamMembers (FirstName, LastName, Email, Role, Category, RollNumber, BatchYear, PhoneNumber, IsActive)
+VALUES ('Farid', 'Ahmed', 'farid@stud.kuet.ac.bd', 'Junior Mentor For Boys', 'Junior Mentor For Boys', '2107043', '2k21', '+8801700000022', 1);
+
+INSERT INTO TeamMembers (FirstName, LastName, Email, Role, Category, RollNumber, BatchYear, PhoneNumber, IsActive)
+VALUES ('Md', 'Mosaddek Ali', 'mosaddek@stud.kuet.ac.bd', 'Junior Mentor For Boys', 'Junior Mentor For Boys', '2107027', '2k21', '+8801700000023', 1);
+
+-- Contest Managers
+INSERT INTO TeamMembers (FirstName, LastName, Email, Role, Category, RollNumber, BatchYear, PhoneNumber, IsActive)
+VALUES ('Dipra', 'Datta', 'dipra@stud.kuet.ac.bd', 'Contest Manager', 'Contest Manager', '2107070', '2k21', '+8801700000024', 1);
+
+INSERT INTO TeamMembers (FirstName, LastName, Email, Role, Category, RollNumber, BatchYear, PhoneNumber, IsActive)
+VALUES ('Ankon', 'Roy', 'ankon@stud.kuet.ac.bd', 'Contest Manager', 'Contest Manager', '2107113', '2k21', '+8801700000025', 1);
+
+-- Assistant Contest Managers
+INSERT INTO TeamMembers (FirstName, LastName, Email, Role, Category, RollNumber, BatchYear, PhoneNumber, IsActive)
+VALUES ('Sk.Nazmus', 'Salehin Nirob', 'nazmus@stud.kuet.ac.bd', 'Assistant Contest Manager', 'Assistant Contest Manager', '2207045', '2k22', '+8801700000026', 1);
+
+INSERT INTO TeamMembers (FirstName, LastName, Email, Role, Category, RollNumber, BatchYear, PhoneNumber, IsActive)
+VALUES ('Nurul', 'Absar Shadik', 'nurul@stud.kuet.ac.bd', 'Assistant Contest Manager', 'Assistant Contest Manager', '2207065', '2k22', '+8801700000027', 1);
+
+INSERT INTO TeamMembers (FirstName, LastName, Email, Role, Category, RollNumber, BatchYear, PhoneNumber, IsActive)
+VALUES ('Sazzad', 'Ahmed', 'sazzad@stud.kuet.ac.bd', 'Assistant Contest Manager', 'Assistant Contest Manager', '2207026', '2k22', '+8801700000028', 1);
+
+INSERT INTO TeamMembers (FirstName, LastName, Email, Role, Category, RollNumber, BatchYear, PhoneNumber, IsActive)
+VALUES ('MD Shahariar', 'Emon Saikat', 'shahariar@stud.kuet.ac.bd', 'Assistant Contest Manager', 'Assistant Contest Manager', '2207002', '2k22', '+8801700000029', 1);
+
+-- Workshop Managers
+INSERT INTO TeamMembers (FirstName, LastName, Email, Role, Category, RollNumber, BatchYear, PhoneNumber, IsActive)
+VALUES ('Raihan', 'Arefin', 'raihanarefin@stud.kuet.ac.bd', 'Workshop Manager', 'Workshop Manager', '2107065', '2k21', '+8801700000030', 1);
+
+INSERT INTO TeamMembers (FirstName, LastName, Email, Role, Category, RollNumber, BatchYear, PhoneNumber, IsActive)
+VALUES ('Naqibul', 'Haque', 'naqibul@stud.kuet.ac.bd', 'Workshop Manager', 'Workshop Manager', '2107077', '2k21', '+8801700000031', 1);
+
+INSERT INTO TeamMembers (FirstName, LastName, Email, Role, Category, RollNumber, BatchYear, PhoneNumber, IsActive)
+VALUES ('Md', 'Tariful Islam Jony', 'tariful@stud.kuet.ac.bd', 'Workshop Manager', 'Workshop Manager', '2107119', '2k21', '+8801700000032', 1);
+
+-- Assistant Workshop Managers
+INSERT INTO TeamMembers (FirstName, LastName, Email, Role, Category, RollNumber, BatchYear, PhoneNumber, IsActive)
+VALUES ('Shah', 'Makhdum Sharif', 'makhdum@stud.kuet.ac.bd', 'Assistant Workshop Manager', 'Assistant Workshop Manager', '2207089', '2k22', '+8801700000033', 1);
+
+INSERT INTO TeamMembers (FirstName, LastName, Email, Role, Category, RollNumber, BatchYear, PhoneNumber, IsActive)
+VALUES ('Md', 'Taki Tahmid Saad', 'taki@stud.kuet.ac.bd', 'Assistant Workshop Manager', 'Assistant Workshop Manager', '2207022', '2k22', '+8801700000034', 1);
+
+GO
+
+-- =====================================================
+-- STEP 4: Verify Data
+-- =====================================================
+
+PRINT '';
+PRINT '=== Team Members by Category ===';
+SELECT DISTINCT Category FROM TeamMembers WHERE IsActive = 1 ORDER BY Category;
+
+PRINT '';
+PRINT '=== Total Team Members Inserted ===';
+SELECT COUNT(*) as TotalMembers FROM TeamMembers WHERE IsActive = 1;
+
+PRINT '';
+PRINT '=== All Team Members ===';
+SELECT TeamMemberId, FirstName + ' ' + LastName as FullName, Role, Category, RollNumber, BatchYear 
+FROM TeamMembers 
+WHERE IsActive = 1 
+ORDER BY Category, Role, FirstName;
+
+PRINT '';
+PRINT 'Setup completed successfully!';
+
+-- =====================================================
+-- STEP 3: Insert All Team Members Data
 -- =====================================================
 
 -- Leadership Team
@@ -181,9 +355,23 @@ SELECT 'Md', 'Taki Tahmid Saad', 'taki@stud.kuet.ac.bd', 'Assistant Workshop Man
 WHERE NOT EXISTS (SELECT 1 FROM TeamMembers WHERE Email = 'taki@stud.kuet.ac.bd');
 
 -- =====================================================
--- VERIFY INSERTION
+-- STEP 4: Verify Data
 -- =====================================================
 
--- View all inserted team members
+PRINT '';
+PRINT '=== Team Members by Category ===';
 SELECT DISTINCT Category FROM TeamMembers WHERE IsActive = 1 ORDER BY Category;
-SELECT * FROM TeamMembers WHERE IsActive = 1 ORDER BY Category, Role;
+
+PRINT '';
+PRINT '=== Total Team Members Inserted ===';
+SELECT COUNT(*) as TotalMembers FROM TeamMembers WHERE IsActive = 1;
+
+PRINT '';
+PRINT '=== All Team Members ===';
+SELECT TeamMemberId, FirstName + ' ' + LastName as FullName, Role, Category, RollNumber, BatchYear 
+FROM TeamMembers 
+WHERE IsActive = 1 
+ORDER BY Category, Role, FirstName;
+
+PRINT '';
+PRINT 'Setup completed successfully!';

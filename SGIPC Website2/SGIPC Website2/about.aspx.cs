@@ -31,7 +31,7 @@ namespace SGIPC_Website2
                     if (pnlSidebarLoggedIn != null) pnlSidebarLoggedIn.Visible = false;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Control handling
             }
