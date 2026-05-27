@@ -68,9 +68,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="about.aspx" />
+    <Content Include="Content2\about.css" />
+    <Content Include="Content2\events.css" />
+    <Content Include="Content2\gallery.css" />
     <Content Include="Content2\index.css" />
     <Content Include="Content2\login.css" />
     <Content Include="Content2\register.css" />
+    <Content Include="Content2\team.css" />
     <Content Include="events.aspx" />
     <Content Include="gallery.aspx" />
     <Content Include="Images2\acv.jpg" />
@@ -91,9 +95,12 @@
     <Content Include="logout.aspx" />
     <Content Include="member.aspx" />
     <Content Include="register.aspx" />
-    <Content Include="Scripts\index.js" />
-    <Content Include="Scripts\login.js" />
-    <Content Include="Scripts\register.js" />
+    <Content Include="Scripts2\events.js" />
+    <Content Include="Scripts2\gallery.js" />
+    <Content Include="Scripts2\index.js" />
+    <Content Include="Scripts2\login.js" />
+    <Content Include="Scripts2\member.js" />
+    <Content Include="Scripts2\register.js" />
     <Content Include="team.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>

@@ -1,255 +1,362 @@
 // ==========================================
 // SGIPC Event Management System
-// Front-end only - uses localStorage for data
+// Database-driven event management
 // ==========================================
 
 console.log("events.js loaded");
 
-// Approved Team Members - Only these can create/manage events
-const approvedTeamMembers = [
-    { name: "Nilay Das", email: "nilay@stud.kuet.ac.bd", role: "President" },
-    { name: "Md. Tanjimul Hasan", email: "tanjimul@stud.kuet.ac.bd", role: "Vice President" },
-    { name: "Shah Md Khalil Ullah", email: "khalil@stud.kuet.ac.bd", role: "Vice President" },
-    { name: "Khadimul Islam Mahi", email: "mahi@stud.kuet.ac.bd", role: "General Secretary" },
-    { name: "Mohammad Abu Daud Sharif", email: "sharif@stud.kuet.ac.bd", role: "Assistant General Secretary" },
-    { name: "Md Umar Faruk", email: "faruk@stud.kuet.ac.bd", role: "Treasurer" },
-    { name: "Amit Kairy", email: "amit@stud.kuet.ac.bd", role: "Organizing Secretary" },
-    { name: "Md. Ashraful Haque Sifat", email: "sifat@stud.kuet.ac.bd", role: "Organizing Secretary" },
-    { name: "Siam Arif", email: "siam@stud.kuet.ac.bd", role: "Assistant Organizing Secretary" },
-    { name: "Siyam Khan", email: "siyam@stud.kuet.ac.bd", role: "Assistant Organizing Secretary" }
-];
+// Global variables from backend - DO NOT DECLARE HERE
+// The backend RegisterStartupScript sets these values
+// isCurrentUserTeamMember, currentUser, currentUserId are set by backend
+var currentEvents = [];  // Store currently displayed events
 
-// Current logged-in user (simulated)
-// TODO: Replace with actual user data from backend when available
-const currentUser = {
-    name: "Nilay Das",
-    email: "nilay@stud.kuet.ac.bd"
-};
-
-// Check if current user is an approved team member
-function isApprovedTeamMember() {
-    // Use backend-verified team member status if available
-    if (typeof isCurrentUserTeamMember !== 'undefined') {
-        return isCurrentUserTeamMember;
-    }
-    // Fallback to checking hardcoded list (for backwards compatibility)
-    return approvedTeamMembers.some(member =>
-        member.email.toLowerCase() === currentUser.email.toLowerCase()
-    );
-}
-
-// Initialize events from localStorage or use default events
+// Initialize events from database
 function initializeEvents() {
-    const storedEvents = localStorage.getItem('sgipcEvents');
+    console.log("===== initializeEvents called =====");
+    console.log("currentUserId:", currentUserId);
+    console.log("isCurrentUserTeamMember:", isCurrentUserTeamMember);
+    console.log("isApprovedTeamMember():", isApprovedTeamMember());
     
-    if (storedEvents) {
-        return JSON.parse(storedEvents);
+    if (!currentUserId) {
+        console.log("No user ID, loading published events only");
+        loadPublishedEventsFromDatabase();
+    } else {
+        console.log("User logged in as ID:", currentUserId, "Team member:", isApprovedTeamMember());
+        loadAllEventsFromDatabase(currentUserId);
     }
+}
+
+// Load published events from database via AJAX
+function loadPublishedEventsFromDatabase() {
+    console.log("===== loadPublishedEventsFromDatabase called =====");
     
-    // Default seed events
-    const defaultEvents = [
-        {
-            id: 1,
-            title: "Algorithm Bootcamp",
-            description: "Master advanced algorithms and data structures. Learn sorting, graph theory, dynamic programming and more.",
-            eventType: "normal",
-            eventDate: "2026-05-22",
-            startTime: "14:00",
-            endTime: "17:00",
-            location: "Main Hall",
-            registrationStatus: "open",
-            registrationLink: "https://forms.gle/algorithm-bootcamp",
-            contestLink: "",
-            isPublished: true,
-            createdByEmail: "nilay@stud.kuet.ac.bd"
+    $.ajax({
+        type: "POST",
+        url: "events.aspx/GetPublishedEvents",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function(response) {
+            console.log("GetPublishedEvents AJAX success - Raw response:", response);
+            let events = [];
+            try {
+                let parsed = JSON.parse(response.d);
+                console.log("Parsed events:", parsed);
+                // Check if response contains an error message
+                if (parsed && parsed.success === false && parsed.message) {
+                    console.error("Database error:", parsed.message);
+                    throw new Error(parsed.message);
+                }
+                events = parsed;
+            } catch (e) {
+                console.error("Error parsing events:", e);
+                let container = document.getElementById('eventsContainer');
+                if (container) {
+                    container.innerHTML = '<p class="no-events">Error loading events: ' + e.message + '<br/>Please check database connection and refresh.</p>';
+                }
+                return;
+            }
+            console.log("✓ Loaded published events count:", events.length);
+            currentEvents = events;
+            renderAllEvents();
         },
-        {
-            id: 2,
-            title: "Weekly Contest",
-            description: "Test your skills in our weekly competitive programming contest. Compete with peers and climb the leaderboard.",
-            eventType: "contest",
-            eventDate: "2026-05-29",
-            startTime: "18:00",
-            endTime: "20:00",
-            location: "Online",
-            registrationStatus: "open",
-            registrationLink: "",
-            contestLink: "https://vjudge.net/contest/example",
-            isPublished: true,
-            createdByEmail: "nilay@stud.kuet.ac.bd"
-        },
-        {
-            id: 3,
-            title: "Industry Expert Talk",
-            description: "Learn from professionals working at leading tech companies. Gain insights into career development and opportunities.",
-            eventType: "normal",
-            eventDate: "2026-06-05",
-            startTime: "15:00",
-            endTime: "16:30",
-            location: "Auditorium",
-            registrationStatus: "open",
-            registrationLink: "https://forms.gle/expert-talk",
-            contestLink: "",
-            isPublished: true,
-            createdByEmail: "nilay@stud.kuet.ac.bd"
-        },
-        {
-            id: 4,
-            title: "Web Development Workshop",
-            description: "Learn modern web development with HTML, CSS, and JavaScript. Build responsive web applications from scratch.",
-            eventType: "normal",
-            eventDate: "2026-06-12",
-            startTime: "14:00",
-            endTime: "17:00",
-            location: "Lab A",
-            registrationStatus: "open",
-            registrationLink: "https://forms.gle/web-dev-workshop",
-            contestLink: "",
-            isPublished: true,
-            createdByEmail: "nilay@stud.kuet.ac.bd"
-        },
-        {
-            id: 5,
-            title: "Team Hackathon",
-            description: "24-hour hackathon event where teams collaborate to build innovative solutions. Code, create, and compete!",
-            eventType: "team",
-            eventDate: "2026-06-19",
-            startTime: "10:00",
-            endTime: "22:00",
-            location: "Main Campus",
-            registrationStatus: "open",
-            registrationLink: "https://forms.gle/hackathon-team",
-            contestLink: "",
-            isPublished: true,
-            createdByEmail: "nilay@stud.kuet.ac.bd"
-        },
-        {
-            id: 6,
-            title: "Code Review Session",
-            description: "Get your code reviewed by experienced developers. Learn best practices and improve your programming skills.",
-            eventType: "normal",
-            eventDate: "2026-06-26",
-            startTime: "16:00",
-            endTime: "18:00",
-            location: "Meeting Room 3",
-            registrationStatus: "open",
-            registrationLink: "https://forms.gle/code-review",
-            contestLink: "",
-            isPublished: true,
-            createdByEmail: "nilay@stud.kuet.ac.bd"
+        error: function(error) {
+            console.error("GetPublishedEvents AJAX ERROR:", error);
+            let container = document.getElementById('eventsContainer');
+            if (container) {
+                container.innerHTML = '<p class="no-events">Error loading events. Connection failed. Please refresh the page.</p>';
+            }
         }
-    ];
+    });
+}
+
+// Load all events from database via AJAX
+function loadAllEventsFromDatabase(userId) {
+    console.log("===== loadAllEventsFromDatabase called with userId:", userId);
     
-    saveEvents(defaultEvents);
-    return defaultEvents;
+    $.ajax({
+        type: "POST",
+        url: "events.aspx/GetAllEvents",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify({ userId: userId }),
+        dataType: "json",
+        success: function(response) {
+            console.log("GetAllEvents AJAX success - Raw response:", response);
+            let events = [];
+            try {
+                let parsed = JSON.parse(response.d);
+                console.log("Parsed events:", parsed);
+                // Check if response contains an error message
+                if (parsed && parsed.success === false && parsed.message) {
+                    console.error("Database error:", parsed.message);
+                    throw new Error(parsed.message);
+                }
+                events = parsed;
+            } catch (e) {
+                console.error("Error parsing events:", e);
+                let container = document.getElementById('eventsContainer');
+                if (container) {
+                    container.innerHTML = '<p class="no-events">Error loading events: ' + e.message + '<br/>Please check database connection and refresh.</p>';
+                }
+                return;
+            }
+            console.log("✓ Loaded all events count:", events.length);
+            currentEvents = events;
+            renderAllEvents();
+        },
+        error: function(error) {
+            console.error("GetAllEvents AJAX ERROR:", error);
+            let container = document.getElementById('eventsContainer');
+            if (container) {
+                container.innerHTML = '<p class="no-events">Error loading events. Connection failed. Please refresh the page.</p>';
+            }
+        }
+    });
 }
 
-// Get all events
-function getAllEvents() {
-    return initializeEvents();
+function isApprovedTeamMember() {
+    return isCurrentUserTeamMember === true;
 }
 
-// Get only published events
-function getPublishedEvents() {
-    return getAllEvents().filter(event => event.isPublished);
-}
+// function createEvent(eventData) {
+//     console.log("createEvent called");
+//     console.log("isApprovedTeamMember:", isApprovedTeamMember());
+//     console.log("currentUserId:", currentUserId);
+    
+//     if (!isApprovedTeamMember()) {
+//         alert("You are not authorized to create events. Only team members can create events.");
+//         return false;
+//     }
+    
+//     if (!currentUserId) {
+//         alert("You must be logged in to create events.");
+//         return false;
+//     }
+    
+//     // Check if we're editing an existing event
+//     const eventId = document.getElementById('eventForm').getAttribute('data-event-id');
+    
+//     if (eventId) {
+//         // Edit existing event
+//         $.ajax({
+//             type: "POST",
+//             url: "events.aspx/EditEvent",
+//             contentType: "application/json; charset=utf-8",
+//             data: JSON.stringify({
+//                 userId: currentUserId,
+//                 eventId: parseInt(eventId),
+//                 title: eventData.title,
+//                 description: eventData.description,
+//                 eventType: eventData.eventType,
+//                 eventDate: eventData.eventDate,
+//                 startTime: eventData.startTime,
+//                 endTime: eventData.endTime,
+//                 location: eventData.location,
+//                 registrationStatus: eventData.registrationStatus,
+//                 registrationLink: eventData.registrationLink,
+//                 contestLink: eventData.contestLink,
+//                 isPublished: eventData.isPublished
+//             }),
+//             dataType: "json",
+//             success: function(response) {
+//                 console.log("EditEvent response:", response);
+//                 try {
+//                     let result = JSON.parse(response.d);
+//                     if (result.success) {
+//                         alert('✓ ' + result.message);
+//                         // Clear the event ID so form resets for new creation
+//                         document.getElementById('eventForm').removeAttribute('data-event-id');
+//                         loadAllEventsFromDatabase(currentUserId);
+//                     } else {
+//                         alert('✗ Error: ' + result.message);
+//                     }
+//                 } catch (e) {
+//                     alert("Error updating event");
+//                 }
+//             },
+//             error: function(error) {
+//                 console.error("Error updating event:", error);
+//                 alert("Error updating event: " + error.statusText);
+//             }
+//         });
+//     } else {
+//         // Create new event
+//         $.ajax({
+//             type: "POST",
+//             url: "events.aspx/CreateEventInDatabase",
+//             contentType: "application/json; charset=utf-8",
+//             data: JSON.stringify({
+//                 userId: currentUserId,
+//                 title: eventData.title,
+//                 description: eventData.description,
+//                 eventType: eventData.eventType,
+//                 eventDate: eventData.eventDate,
+//                 startTime: eventData.startTime,
+//                 endTime: eventData.endTime,
+//                 location: eventData.location,
+//                 registrationStatus: eventData.registrationStatus,
+//                 registrationLink: eventData.registrationLink,
+//                 contestLink: eventData.contestLink,
+//                 isPublished: eventData.isPublished
+//             }),
+//             dataType: "json",
+//             success: function(response) {
+//                 console.log("CreateEventInDatabase response:", response);
+//                 try {
+//                     let result = JSON.parse(response.d);
+//                     if (result.success) {
+//                         alert('✓ ' + result.message);
+//                         loadAllEventsFromDatabase(currentUserId);
+//                     } else {
+//                         alert('✗ Error: ' + result.message);
+//                     }
+//                 } catch (e) {
+//                     alert("Error creating event");
+//                 }
+//             },
+//             error: function(error) {
+//                 console.error("Error creating event:", error);
+//                 alert("Error creating event: " + error.statusText);
+//             }
+//         });
+//     }
+    
+//     return true;
+// }
 
-// Save events to localStorage
-function saveEvents(events) {
-    try {
-        const jsonString = JSON.stringify(events);
-        console.log("Saving events to localStorage, count:", events.length, "data:", jsonString);
-        localStorage.setItem('sgipcEvents', jsonString);
-        console.log("Events saved successfully to localStorage");
-    } catch (error) {
-        console.error("Error saving events:", error);
-        alert("Error saving events: " + error.message);
-    }
-}
-
-// Create new event
 function createEvent(eventData) {
-    console.log("createEvent called with:", eventData);
+    console.log("===== createEvent STARTED =====");
+    console.log("Event Data:", eventData);
     console.log("isApprovedTeamMember:", isApprovedTeamMember());
-    console.log("currentUser:", currentUser);
+    console.log("isCurrentUserTeamMember (raw):", isCurrentUserTeamMember);
+    console.log("currentUserId:", currentUserId);
     
     if (!isApprovedTeamMember()) {
-        alert("You are not authorized to create events. Current email: " + currentUser.email);
+        console.error("FAILED: User is not an approved team member");
+        alert("You are not authorized to create events. Only team members can create events.");
         return false;
     }
     
-    const events = getAllEvents();
-    const newId = Math.max(0, ...events.map(e => e.id)) + 1;
+    if (!currentUserId) {
+        console.error("FAILED: No currentUserId found");
+        alert("You must be logged in to create events.");
+        return false;
+    }
     
-    const newEvent = {
-        id: newId,
-        ...eventData,
-        createdByEmail: currentUser.email
-    };
+    const eventId = document.getElementById('eventForm').getAttribute('data-event-id');
+    console.log("Editing existing event?", !!eventId);
     
-    console.log("Created event:", newEvent);
+    if (eventId) {
+        // Edit existing event
+        $.ajax({
+            type: "POST",
+            url: "events.aspx/EditEvent",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({
+                userId: currentUserId,
+                eventId: parseInt(eventId),
+                title: eventData.title,
+                description: eventData.description,
+                eventType: eventData.eventType,
+                eventDate: eventData.eventDate,
+                startTime: eventData.startTime,
+                endTime: eventData.endTime,
+                location: eventData.location,
+                registrationStatus: eventData.registrationStatus,
+                registrationLink: eventData.registrationLink,
+                contestLink: eventData.contestLink,
+                isPublished: eventData.isPublished
+            }),
+            dataType: "json",
+            success: function(response) {
+                console.log("EditEvent response:", response);
+                try {
+                    let result = typeof response.d === "string" ? JSON.parse(response.d) : response.d;
+                    if (result.success) {
+                        alert('✓ ' + result.message);
+                        document.getElementById('eventManagementForm').style.display = 'none';
+                        clearEventForm();
+                        initializeEvents();
+                    } else {
+                        alert('✗ Error: ' + result.message);
+                    }
+                } catch (e) {
+                    alert("Error updating event");
+                }
+            },
+            error: function(error) {
+                console.error("Error updating event:", error);
+                alert("Error updating event: " + error.statusText);
+            }
+        });
+    } else {
+        // Create new event
+        $.ajax({
+            type: "POST",
+            url: "events.aspx/CreateEventInDatabase",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({
+                userId: currentUserId,
+                title: eventData.title,
+                description: eventData.description,
+                eventType: eventData.eventType,
+                eventDate: eventData.eventDate,
+                startTime: eventData.startTime,
+                endTime: eventData.endTime,
+                location: eventData.location,
+                registrationStatus: eventData.registrationStatus,
+                registrationLink: eventData.registrationLink,
+                contestLink: eventData.contestLink,
+                isPublished: eventData.isPublished
+            }),
+            dataType: "json",
+            success: function(response) {
+                console.log("===== CreateEventInDatabase SUCCESS =====");
+                console.log("Raw Response:", response);
+                console.log("Response.d type:", typeof response.d);
+                try {
+                    // Check type compatibility dynamically
+                    let result = typeof response.d === "string" ? JSON.parse(response.d) : response.d;
+                    console.log("Parsed Result:", result);
+                    console.log("Result.success:", result.success);
+                    
+                    if (result.success) {
+                        console.log("✓ Event creation successful!");
+                        alert('✓ ' + result.message);
+                        
+                        // Close the form
+                        document.getElementById('eventManagementForm').style.display = 'none';
+                        clearEventForm();
+                        
+                        // Wait a moment for DB to settle, then refresh
+                        console.log("Waiting 1 second before refreshing events...");
+                        setTimeout(function() {
+                            console.log("NOW calling initializeEvents to refresh the list");
+                            initializeEvents();
+                        }, 1000);
+                    } else {
+                        console.error("✗ Event creation failed:", result.message);
+                        alert('✗ Error: ' + result.message);
+                    }
+                } catch (e) {
+                    console.error("Parsing breakdown:", e);
+                    console.error("Response.d content:", response.d);
+                    alert("Error creating event while evaluating database response. Check console.");
+                }
+            },
+            error: function(error) {
+                console.error("===== AJAX ERROR creating event =====");
+                console.error("Error details:", error);
+                console.error("Status:", error.status);
+                console.error("StatusText:", error.statusText);
+                console.error("ResponseText:", error.responseText);
+                alert("ERROR creating event: " + error.status + " " + error.statusText + "\n\nCheck console for details.");
+            }
+        });
+    }
     
-    events.push(newEvent);
-    saveEvents(events);
-    console.log("Events after save:", getAllEvents());
     return true;
 }
 
-// Edit event
-function editEvent(eventId, eventData) {
-    if (!isApprovedTeamMember()) {
-        alert("You are not authorized to edit events.");
-        return false;
-    }
-    
-    const events = getAllEvents();
-    const event = events.find(e => e.id === eventId);
-    
-    if (!event) {
-        alert("Event not found.");
-        return false;
-    }
-    
-    // Update event properties
-    Object.assign(event, eventData);
-    saveEvents(events);
-    return true;
-}
-
-// Delete event
-function deleteEvent(eventId) {
-    if (!isApprovedTeamMember()) {
-        alert("You are not authorized to delete events.");
-        return false;
-    }
-    
-    let events = getAllEvents();
-    events = events.filter(e => e.id !== eventId);
-    saveEvents(events);
-    return true;
-}
-
-// Publish/Unpublish event
-function publishEvent(eventId, isPublished) {
-    if (!isApprovedTeamMember()) {
-        alert("You are not authorized to publish events.");
-        return false;
-    }
-    
-    const events = getAllEvents();
-    const event = events.find(e => e.id === eventId);
-    
-    if (!event) {
-        alert("Event not found.");
-        return false;
-    }
-    
-    event.isPublished = isPublished;
-    saveEvents(events);
-    return true;
-}
-
-// Get button text based on event type
 function getButtonText(eventType) {
     switch(eventType) {
         case 'normal': return 'Register Now';
@@ -259,7 +366,6 @@ function getButtonText(eventType) {
     }
 }
 
-// Get button action URL
 function getButtonUrl(event) {
     if (event.eventType === 'contest') {
         return event.contestLink;
@@ -267,80 +373,134 @@ function getButtonUrl(event) {
     return event.registrationLink;
 }
 
-// Format time to HH:MM
 function formatTime(timeString) {
+    if (!timeString || timeString === '00:00:00') return '';
+    try {
+        const parts = timeString.split(':');
+        const hour = parseInt(parts[0]);
+        const min = parts[1];
+        const ampm = hour >= 12 ? 'PM' : 'AM';
+        const displayHour = hour % 12 || 12;
+        return displayHour + ':' + min + ' ' + ampm;
+    } catch (e) {
+        return timeString;
+    }
+}
+
+function normalizeTimeForInput(timeString) {
     if (!timeString) return '';
-    const [hours, minutes] = timeString.split(':');
-    const hour = parseInt(hours);
-    const min = minutes;
-    const ampm = hour >= 12 ? 'PM' : 'AM';
-    const displayHour = hour % 12 || 12;
-    return `${displayHour}:${min} ${ampm}`;
+    const parts = timeString.split(':');
+    if (parts.length >= 2) {
+        return parts[0].padStart(2, '0') + ':' + parts[1].padStart(2, '0');
+    }
+    return timeString;
 }
 
-// Format date to readable format
+function escapeJsString(value) {
+    return (value || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/\r?\n/g, ' ');
+}
+
 function formatDate(dateString) {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    try {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    } catch (e) {
+        return dateString;
+    }
 }
 
-// Get countdown until event starts
 function getCountdown(eventDate, startTime) {
-    const eventDateTime = new Date(eventDate + 'T' + startTime);
-    const now = new Date();
-    const diff = eventDateTime - now;
-    
-    if (diff < 0) {
-        // Check if event has ended
-        const endTime = new Date(eventDate + 'T' + startTime);
-        // Assume 3 hours is standard event duration if we don't have end time
-        return { status: 'ended' };
+    try {
+        const eventDateTime = new Date(eventDate + 'T' + startTime);
+        const now = new Date();
+        const diff = eventDateTime - now;
+        
+        if (diff < 0) {
+            return { status: 'ended' };
+        }
+        
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+        
+        if (days === 0 && hours === 0 && minutes === 0 && seconds === 0) {
+            return { status: 'started' };
+        }
+        
+        return { 
+            status: 'upcoming',
+            days: days,
+            hours: hours,
+            minutes: minutes,
+            seconds: seconds
+        };
+    } catch (e) {
+        return { status: 'unknown' };
     }
-    
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-    
-    if (days === 0 && hours === 0 && minutes === 0 && seconds === 0) {
-        return { status: 'started' };
-    }
-    
-    return { 
-        status: 'upcoming',
-        days: days,
-        hours: hours,
-        minutes: minutes,
-        seconds: seconds
-    };
 }
 
-// Render a single event card
+function registerForEvent(eventId, externalUrl) {
+    console.log("registerForEvent called for eventId:", eventId);
+
+    if (!currentUserId) {
+        alert("You must be logged in to register for events.");
+        window.location.href = "login.aspx";
+        return;
+    }
+
+    $.ajax({
+        type: "POST",
+        url: "events.aspx/RegisterForEvent",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify({
+            userId: currentUserId,
+            eventId: eventId
+        }),
+        dataType: "json",
+        success: function(response) {
+            console.log("RegisterForEvent response:", response);
+            try {
+                let result = typeof response.d === "string" ? JSON.parse(response.d) : response.d;
+                if (result.success) {
+                    alert("Registered successfully.");
+                    if (externalUrl) {
+                        window.open(externalUrl, "_blank");
+                    }
+                } else {
+                    alert(result.message);
+                    if (externalUrl && result.message && result.message.indexOf("already registered") !== -1) {
+                        window.open(externalUrl, "_blank");
+                    }
+                }
+            } catch (e) {
+                alert("Registration submitted");
+                if (externalUrl) {
+                    window.open(externalUrl, "_blank");
+                }
+            }
+        },
+        error: function(error) {
+            console.error("Error registering:", error);
+            alert("Error during registration");
+        }
+    });
+}
 function renderEventCard(event) {
     const countdown = getCountdown(event.eventDate, event.startTime);
     const isApproved = isApprovedTeamMember();
-    const isOwnEvent = event.createdByEmail === currentUser.email;
     
     const dateObj = new Date(event.eventDate);
-    const day = dateObj.getDate().toString().padStart(2, '0');
+    const day = String(dateObj.getDate()).padStart(2, '0');
     const month = dateObj.toLocaleDateString('en-US', { month: 'short' });
     
     let countdownHtml = '';
     if (countdown.status === 'upcoming') {
-        countdownHtml = `<div class="event-countdown" data-event-id="${event.id}">
-            <i class="fas fa-hourglass-half"></i>
-            Starts in: <span class="countdown-text">${countdown.days}d ${countdown.hours}h ${countdown.minutes}m ${countdown.seconds}s</span>
-        </div>`;
+        countdownHtml = '<div class="event-countdown" data-event-id="' + event.id + '"><i class="fas fa-hourglass-half"></i> Starts in: <span class="countdown-text">' + countdown.days + 'd ' + countdown.hours + 'h ' + countdown.minutes + 'm</span></div>';
     } else if (countdown.status === 'started') {
-        countdownHtml = `<div class="event-countdown event-started">
-            <i class="fas fa-play"></i>
-            Event Started
-        </div>`;
+        countdownHtml = '<div class="event-countdown event-started"><i class="fas fa-play"></i> Event Started</div>';
     } else {
-        countdownHtml = `<div class="event-countdown event-ended">
-            <i class="fas fa-flag-checkered"></i>
-            Event Ended
-        </div>`;
+        countdownHtml = '<div class="event-countdown event-ended"><i class="fas fa-flag-checkered"></i> Event Ended</div>';
     }
     
     let buttonHtml = '';
@@ -354,126 +514,99 @@ function renderEventCard(event) {
         buttonDisabled = true;
         buttonText = 'Coming Soon';
     } else {
-        // Check if required link exists
         const buttonUrl = getButtonUrl(event);
-        if (!buttonUrl) {
+        if (!buttonUrl && event.eventType !== 'normal') {
             buttonDisabled = true;
             buttonText = 'Link Not Available';
         }
     }
     
     if (buttonDisabled) {
-        buttonHtml = `<button class="event-btn" disabled>${buttonText}</button>`;
+        buttonHtml = '<button type="button" class="event-btn" disabled>' + buttonText + '</button>';
     } else {
         const url = getButtonUrl(event);
-        buttonHtml = `<button class="event-btn" onclick="window.open('${url}', '_blank');">${buttonText}</button>`;
+        if (url) {
+            buttonHtml = '<button type="button" class="event-btn" onclick="registerForEvent(' + event.id + ', \'' + escapeJsString(url) + '\');">' + buttonText + '</button>';
+        } else {
+            buttonHtml = '<button type="button" class="event-btn" onclick="registerForEvent(' + event.id + ');">Register</button>';
+        }
+    }
+    
+    let draftBadge = '';
+    if (isApproved && !event.isPublished) {
+        draftBadge = '<span class="draft-badge">DRAFT</span>';
     }
     
     let managementHtml = '';
-    if (isApproved && isOwnEvent) {
-        managementHtml = `
-            <div class="event-management-controls">
-                <button class="btn-edit" onclick="editEventClick(${event.id});" title="Edit Event">
-                    <i class="fas fa-edit"></i> Edit
-                </button>
-                <button class="btn-delete" onclick="deleteEventClick(${event.id});" title="Delete Event">
-                    <i class="fas fa-trash"></i> Delete
-                </button>
-                ${event.isPublished ? 
-                    `<button class="btn-unpublish" onclick="unpublishEventClick(${event.id});" title="Unpublish Event">
-                        <i class="fas fa-eye-slash"></i> Unpublish
-                    </button>` :
-                    `<button class="btn-publish" onclick="publishEventClick(${event.id});" title="Publish Event">
-                        <i class="fas fa-eye"></i> Publish
-                    </button>`
-                }
-            </div>
-        `;
+    if (isApproved) {
+        managementHtml = '<div class="event-management-controls">' +
+            '<button type="button" class="btn-edit" onclick="editEventClick(' + event.id + ');" title="Edit Event"><i class="fas fa-edit"></i> Edit</button>' +
+            '<button type="button" class="btn-delete" onclick="deleteEventClick(' + event.id + ');" title="Delete Event"><i class="fas fa-trash"></i> Delete</button>' +
+            '</div>';
     }
     
     const eventTypeLabel = event.eventType.charAt(0).toUpperCase() + event.eventType.slice(1);
     
-    return `
-        <div class="event-card" data-event-id="${event.id}">
-            <div class="event-date">
-                <span class="date-day">${day}</span>
-                <span class="date-month">${month}</span>
-            </div>
-            <div class="event-content">
-                <div class="event-type-badge">${eventTypeLabel}</div>
-                <h3>${event.title}</h3>
-                <p class="event-description">
-                    ${event.description}
-                </p>
-                <div class="event-meta">
-                    <span><i class="fas fa-clock"></i> ${formatTime(event.startTime)} - ${formatTime(event.endTime)}</span>
-                    <span><i class="fas fa-map-pin"></i> ${event.location}</span>
-                </div>
-                ${countdownHtml}
-                <div class="event-registration-status">
-                    Status: <strong>${event.registrationStatus.charAt(0).toUpperCase() + event.registrationStatus.slice(1)}</strong>
-                </div>
-                ${buttonHtml}
-                ${managementHtml}
-            </div>
-        </div>
-    `;
+    return '<div class="event-card" data-event-id="' + event.id + '">' +
+        '<div class="event-date"><span class="date-day">' + day + '</span><span class="date-month">' + month + '</span></div>' +
+        '<div class="event-content">' +
+        '<div class="event-type-badge">' + eventTypeLabel + ' ' + draftBadge + '</div>' +
+        '<h3>' + event.title + '</h3>' +
+        '<p class="event-description">' + event.description + '</p>' +
+        '<div class="event-meta">' +
+        '<span><i class="fas fa-clock"></i> ' + formatTime(event.startTime) + ' - ' + formatTime(event.endTime) + '</span>' +
+        '<span><i class="fas fa-map-pin"></i> ' + event.location + '</span>' +
+        '</div>' +
+        countdownHtml +
+        '<div class="event-registration-status">Status: <strong>' + event.registrationStatus.charAt(0).toUpperCase() + event.registrationStatus.slice(1) + '</strong></div>' +
+        buttonHtml +
+        managementHtml +
+        '</div></div>';
 }
 
-// Render all events to the page
 function renderAllEvents() {
     const container = document.getElementById('eventsContainer');
-    console.log("renderAllEvents called, container:", container);
+    console.log("renderAllEvents called, events count:", currentEvents.length);
     
     if (!container) {
         console.error("eventsContainer not found!");
         return;
     }
     
-    const eventsToShow = isApprovedTeamMember() ? getAllEvents() : getPublishedEvents();
-    console.log("Events to show:", eventsToShow);
-    
-    if (eventsToShow.length === 0) {
-        console.log("No events to show");
+    if (currentEvents.length === 0) {
         container.innerHTML = '<p class="no-events">No events available.</p>';
         return;
     }
     
-    const html = eventsToShow
-        .map(event => renderEventCard(event))
-        .join('');
+    let html = '';
+    for (let i = 0; i < currentEvents.length; i++) {
+        html += renderEventCard(currentEvents[i]);
+    }
     
-    console.log("Rendered HTML length:", html.length);
     container.innerHTML = html;
-    
-    // Attach countdown update intervals
     updateAllCountdowns();
 }
 
-// Update countdown timers every second
 function updateAllCountdowns() {
-    setInterval(() => {
-        const countdownElements = document.querySelectorAll('.event-countdown[data-event-id]');
-        countdownElements.forEach(element => {
+    setInterval(function() {
+        const elements = document.querySelectorAll('.event-countdown[data-event-id]');
+        for (let i = 0; i < elements.length; i++) {
+            const element = elements[i];
             const eventId = parseInt(element.getAttribute('data-event-id'));
-            const event = getAllEvents().find(e => e.id === eventId);
+            const event = currentEvents.find(function(e) { return e.id == eventId; });
             
             if (event) {
                 const countdown = getCountdown(event.eventDate, event.startTime);
-                
                 if (countdown.status === 'upcoming') {
                     const countdownText = element.querySelector('.countdown-text');
                     if (countdownText) {
-                        countdownText.textContent = 
-                            `${countdown.days}d ${countdown.hours}h ${countdown.minutes}m ${countdown.seconds}s`;
+                        countdownText.textContent = countdown.days + 'd ' + countdown.hours + 'h ' + countdown.minutes + 'm';
                     }
                 }
             }
-        });
+        }
     }, 1000);
 }
-
-// UI Event Handlers
 
 function toggleEventForm() {
     const form = document.getElementById('eventManagementForm');
@@ -482,10 +615,6 @@ function toggleEventForm() {
         form.style.display = isVisible ? 'none' : 'block';
         if (!isVisible) {
             clearEventForm();
-            // Scroll to form
-            setTimeout(() => {
-                form.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 100);
         }
     }
 }
@@ -493,97 +622,53 @@ function toggleEventForm() {
 function clearEventForm() {
     const form = document.getElementById('eventForm');
     if (form) {
-        form.reset();
         form.removeAttribute('data-event-id');
     }
-    const submitBtn = document.querySelector('#eventForm button[type="submit"]');
+    const formTitle = document.getElementById('eventFormTitle');
+    if (formTitle) {
+        formTitle.textContent = 'Create Event';
+    }
+    const fields = document.querySelectorAll('#eventForm input, #eventForm textarea, #eventForm select');
+    for (let i = 0; i < fields.length; i++) {
+        fields[i].value = fields[i].tagName === 'SELECT' ? fields[i].querySelector('option').value : '';
+    }
+    const publishStatus = document.getElementById('publishStatus');
+    if (publishStatus) {
+        publishStatus.value = 'published';
+    }
+    const submitBtn = document.getElementById('saveEventBtn');
     if (submitBtn) {
         submitBtn.innerHTML = '<i class="fas fa-save"></i> Save Event';
     }
 }
 
-function editEventClick(eventId) {
-    const event = getAllEvents().find(e => e.id === eventId);
-    if (!event) return;
-    
-    // Populate form with event data
-    document.getElementById('eventTitle').value = event.title;
-    document.getElementById('eventDescription').value = event.description;
-    document.getElementById('eventType').value = event.eventType;
-    document.getElementById('eventDate').value = event.eventDate;
-    document.getElementById('startTime').value = event.startTime;
-    document.getElementById('endTime').value = event.endTime;
-    document.getElementById('eventLocation').value = event.location;
-    document.getElementById('registrationStatus').value = event.registrationStatus;
-    document.getElementById('registrationLink').value = event.registrationLink;
-    document.getElementById('contestLink').value = event.contestLink;
-    document.getElementById('publishStatus').value = event.isPublished ? 'published' : 'unpublished';
-    
-    // Mark form for editing
-    document.getElementById('eventForm').setAttribute('data-event-id', eventId);
-    const submitBtn = document.querySelector('#eventForm button[type="submit"]');
-    if (submitBtn) {
-        submitBtn.innerHTML = '<i class="fas fa-pen"></i> Update Event';
-    }
-    
-    // Show form
-    document.getElementById('eventManagementForm').style.display = 'block';
-    document.getElementById('eventManagementForm').scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-
-function deleteEventClick(eventId) {
-    if (confirm('Are you sure you want to delete this event?')) {
-        if (deleteEvent(eventId)) {
-            renderAllEvents();
-        }
-    }
-}
-
-function publishEventClick(eventId) {
-    if (publishEvent(eventId, true)) {
-        renderAllEvents();
-    }
-}
-
-function unpublishEventClick(eventId) {
-    if (publishEvent(eventId, false)) {
-        renderAllEvents();
-    }
-}
-
-// Initialize on page load
 document.addEventListener('DOMContentLoaded', function() {
     console.log("DOMContentLoaded fired");
-    console.log("isApprovedTeamMember():", isApprovedTeamMember());
+    console.log("isCurrentUserTeamMember:", isCurrentUserTeamMember);
+    console.log("currentUserId:", currentUserId);
     
-    // Show management controls if approved team member
     const controls = document.getElementById('teamMemberControls');
-    console.log("teamMemberControls element:", controls);
-    
     if (controls && isApprovedTeamMember()) {
         controls.style.display = 'block';
         console.log("Showing team member controls");
-    } else {
-        console.log("NOT showing team member controls");
     }
     
-    // Set up event listeners
     const createBtn = document.getElementById('createEventBtn');
-    console.log("createEventBtn element:", createBtn);
-    
-    if (createBtn) {
+    if (createBtn && !createBtn.hasAttribute('data-listener-attached')) {
         createBtn.addEventListener('click', function() {
             console.log("Create Event button clicked");
+            if (!isApprovedTeamMember()) {
+                alert("Only team members can create events.");
+                return;
+            }
             toggleEventForm();
         });
-        console.log("Event listener attached to createBtn");
+        createBtn.setAttribute('data-listener-attached', 'true');
     }
     
-    // Handle close form button
     const closeFormBtn = document.getElementById('closeFormBtn');
     if (closeFormBtn) {
         closeFormBtn.addEventListener('click', function() {
-            console.log("Close Form button clicked");
             document.getElementById('eventManagementForm').style.display = 'none';
             clearEventForm();
         });
@@ -592,24 +677,28 @@ document.addEventListener('DOMContentLoaded', function() {
     const cancelBtn = document.getElementById('cancelEventBtn');
     if (cancelBtn) {
         cancelBtn.addEventListener('click', function() {
-            console.log("Cancel button clicked");
             document.getElementById('eventManagementForm').style.display = 'none';
             clearEventForm();
         });
     }
     
-    // Handle form submission
-    const eventForm = document.getElementById('eventForm');
-    console.log("eventForm element:", eventForm);
-    
-    if (eventForm) {
-        eventForm.addEventListener('submit', function(e) {
+    const saveEventBtn = document.getElementById('saveEventBtn');
+    if (saveEventBtn) {
+        saveEventBtn.addEventListener('click', function(e) {
             e.preventDefault();
-            console.log("Form submitted");
             
-            const eventId = this.getAttribute('data-event-id');
-            console.log("eventId from form:", eventId);
-            
+            if (!document.getElementById('eventTitle').value ||
+                !document.getElementById('eventDescription').value ||
+                !document.getElementById('eventType').value ||
+                !document.getElementById('eventLocation').value ||
+                !document.getElementById('eventDate').value ||
+                !document.getElementById('startTime').value ||
+                !document.getElementById('endTime').value ||
+                !document.getElementById('registrationStatus').value) {
+                alert('Please fill in all required event fields.');
+                return;
+            }
+
             const eventData = {
                 title: document.getElementById('eventTitle').value,
                 description: document.getElementById('eventDescription').value,
@@ -624,48 +713,165 @@ document.addEventListener('DOMContentLoaded', function() {
                 isPublished: document.getElementById('publishStatus').value === 'published'
             };
             
-            // Validate dates and times
-            if (new Date(eventData.eventDate + 'T' + eventData.startTime) >= new Date(eventData.eventDate + 'T' + eventData.endTime)) {
-                alert('Error: End time must be after start time!');
-                return;
-            }
-            
             if (eventData.eventType === 'contest' && !eventData.contestLink) {
                 alert('Error: Contest events require a contest link!');
                 return;
             }
             
-            console.log("eventData:", eventData);
-            
-            let success = false;
-            if (eventId) {
-                // Edit existing event
-                console.log("Editing event:", eventId);
-                success = editEvent(parseInt(eventId), eventData);
-                if (success) {
-                    alert('✓ Event updated successfully!');
-                }
-            } else {
-                // Create new event
-                console.log("Creating new event");
-                success = createEvent(eventData);
-                if (success) {
-                    alert('✓ Event created successfully!');
-                }
-            }
-            
-            console.log("success:", success);
-            
-            if (success) {
-                document.getElementById('eventManagementForm').style.display = 'none';
-                clearEventForm();
-                renderAllEvents();
-            }
+            createEvent(eventData);
         });
-        console.log("Event listener attached to form submission");
     }
     
-    // Initial render
     console.log("Initial render...");
-    renderAllEvents();
+    initializeEvents();
 });
+
+// If DOM is already loaded, attach handlers immediately
+// Otherwise, set up a listener for DOMContentLoaded
+function setupHandlers() {
+    const createBtn = document.getElementById('createEventBtn');
+    if (createBtn) {
+        // Check if listener already attached
+        if (!createBtn.hasAttribute('data-listener-attached')) {
+            createBtn.addEventListener('click', function() {
+                console.log("Create Event button clicked");
+                if (!isApprovedTeamMember()) {
+                    alert("Only team members can create events.");
+                    return;
+                }
+                toggleEventForm();
+            });
+            createBtn.setAttribute('data-listener-attached', 'true');
+        }
+    }
+}
+
+// Handle case where DOM is already loaded before events.js loads
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupHandlers);
+} else {
+    setupHandlers();
+}
+
+// Edit Event - populate form and show it for editing
+function editEventClick(eventId) {
+    const event = currentEvents.find(e => e.id === eventId.toString() || e.id == eventId);
+    
+    if (!event) {
+        alert('Event not found');
+        return;
+    }
+    
+    if (!isApprovedTeamMember()) {
+        alert('Only team members can edit events');
+        return;
+    }
+    
+    // Get the form element
+    const eventForm = document.getElementById('eventForm');
+    if (!eventForm) {
+        alert('Event form not found in page');
+        console.error('eventForm element not found');
+        return;
+    }
+    
+    // Populate the form with event data
+    const titleField = document.getElementById('eventTitle');
+    if (titleField) titleField.value = event.title;
+    
+    const descField = document.getElementById('eventDescription');
+    if (descField) descField.value = event.description;
+    
+    const typeField = document.getElementById('eventType');
+    if (typeField) typeField.value = event.eventType;
+    
+    const dateField = document.getElementById('eventDate');
+    if (dateField) dateField.value = event.eventDate;
+    
+    const startField = document.getElementById('startTime');
+    if (startField) startField.value = normalizeTimeForInput(event.startTime);
+    
+    const endField = document.getElementById('endTime');
+    if (endField) endField.value = normalizeTimeForInput(event.endTime);
+    
+    const locField = document.getElementById('eventLocation');
+    if (locField) locField.value = event.location;
+    
+    const regField = document.getElementById('registrationStatus');
+    if (regField) regField.value = event.registrationStatus;
+    
+    const regLinkField = document.getElementById('registrationLink');
+    if (regLinkField) regLinkField.value = event.registrationLink || '';
+    
+    const contestLinkField = document.getElementById('contestLink');
+    if (contestLinkField) contestLinkField.value = event.contestLink || '';
+    
+    const pubField = document.getElementById('publishStatus');
+    if (pubField) pubField.value = event.isPublished ? 'published' : 'unpublished';
+    
+    // Store event ID in form for submission
+    eventForm.setAttribute('data-event-id', eventId);
+
+    const saveBtn = document.getElementById('saveEventBtn');
+    if (saveBtn) {
+        saveBtn.innerHTML = '<i class="fas fa-save"></i> Update Event';
+    }
+
+    const formTitle = document.getElementById('eventFormTitle');
+    if (formTitle) {
+        formTitle.textContent = 'Edit Event';
+    }
+    
+    // Show the form
+    const formContainer = document.getElementById('eventManagementForm');
+    if (formContainer) {
+        formContainer.style.display = 'block';
+        formContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
+
+// Delete Event - confirm and delete
+function deleteEventClick(eventId) {
+    const event = currentEvents.find(e => e.id === eventId.toString() || e.id == eventId);
+    
+    if (!event) {
+        alert('Event not found');
+        return;
+    }
+    
+    if (!isApprovedTeamMember()) {
+        alert('Only team members can delete events');
+        return;
+    }
+    
+    if (confirm('Are you sure you want to delete "' + event.title + '"? This action cannot be undone.')) {
+        $.ajax({
+            type: 'POST',
+            url: 'events.aspx/DeleteEvent',
+            data: JSON.stringify({
+                userId: currentUserId,
+                eventId: eventId
+            }),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function(response) {
+                console.log("Delete response:", response);
+                const result = typeof response.d === 'string' ? JSON.parse(response.d) : response.d;
+                
+                if (result.success) {
+                    alert('✓ Event deleted successfully!');
+                    // Remove from currentEvents array
+                    currentEvents = currentEvents.filter(e => e.id !== eventId.toString() && e.id != eventId);
+                    // Re-render
+                    renderAllEvents();
+                } else {
+                    alert('Error: ' + result.message);
+                }
+            },
+            error: function(err) {
+                console.log("Delete error:", err);
+                alert('Error deleting event: ' + err.statusText);
+            }
+        });
+    }
+}

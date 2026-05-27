@@ -52,5 +52,20 @@ namespace SGIPC_Website2
         /// lblSidebarUserName control.
         /// </summary>
         protected global::System.Web.UI.WebControls.Label lblSidebarUserName;
+
+        /// <summary>
+        /// btnAddAchievements control.
+        /// </summary>
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnAddAchievements;
+
+        /// <summary>
+        /// btnAddWorkshops control.
+        /// </summary>
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnAddWorkshops;
+
+        /// <summary>
+        /// btnAddTeamEvents control.
+        /// </summary>
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnAddTeamEvents;
     }
 }

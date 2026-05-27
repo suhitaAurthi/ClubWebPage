@@ -109,10 +109,55 @@
                 <p>Explore our club's achievements, events, and memorable moments</p>
             </section>
 
+            <section id="galleryManagementForm" class="gallery-management-section" style="display: none;">
+                <div class="gallery-form-header">
+                    <h2>Add Gallery Photo</h2>
+                    <button type="button" id="closeGalleryFormBtn" class="gallery-icon-btn" title="Close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div id="galleryPhotoForm" class="gallery-photo-form">
+                    <div class="gallery-form-row">
+                        <div class="gallery-form-group">
+                            <label for="galleryCategory">Section <span class="required">*</span></label>
+                            <select id="galleryCategory" required>
+                                <option value="achievements">Achievements</option>
+                                <option value="workshops">Workshop Events</option>
+                                <option value="team-events">Team Events</option>
+                            </select>
+                        </div>
+                        <div class="gallery-form-group">
+                            <label for="galleryImageFile">Image File <span class="required">*</span></label>
+                            <input type="file" id="galleryImageFile" accept="image/png,image/jpeg,image/jpg,image/webp,image/gif" required />
+                        </div>
+                    </div>
+                    <div class="gallery-form-row">
+                        <div class="gallery-form-group">
+                            <label for="galleryTitle">Title <span class="required">*</span></label>
+                            <input type="text" id="galleryTitle" placeholder="Photo title" required />
+                        </div>
+                        <div class="gallery-form-group">
+                            <label for="galleryDescription">Description</label>
+                            <input type="text" id="galleryDescription" placeholder="Short caption" />
+                        </div>
+                    </div>
+                    <div class="gallery-form-actions">
+                        <button type="button" id="saveGalleryPhotoBtn" class="gallery-primary-btn">
+                            <i class="fas fa-save"></i> Save Photo
+                        </button>
+                    </div>
+                </div>
+            </section>
+
             <!-- Achievements Section -->
             <section class="gallery-section">
-                <h2>Achievements</h2>
-                <div class="gallery-grid">
+                <div class="gallery-section-header">
+                    <h2>Achievements</h2>
+                    <button type="button" class="gallery-add-btn team-gallery-control" data-category="achievements" runat="server" id="btnAddAchievements" visible="false">
+                        <i class="fas fa-plus"></i> Add Photo
+                    </button>
+                </div>
+                <div class="gallery-grid" id="achievementsGrid">
                     <div class="gallery-item">
                         <div class="gallery-image">
                             <img src="Images2/acv.jpg" alt="Achievement" />
@@ -187,8 +232,13 @@
 
             <!-- Workshop Events Section -->
             <section class="gallery-section">
-                <h2>Workshop Events</h2>
-                <div class="gallery-grid">
+                <div class="gallery-section-header">
+                    <h2>Workshop Events</h2>
+                    <button type="button" class="gallery-add-btn team-gallery-control" data-category="workshops" runat="server" id="btnAddWorkshops" visible="false">
+                        <i class="fas fa-plus"></i> Add Photo
+                    </button>
+                </div>
+                <div class="gallery-grid" id="workshopsGrid">
                     <div class="gallery-item">
                         <div class="gallery-image">
                             <img src="Images2/ws1.jpg" alt="Workshop 1" />
@@ -233,8 +283,13 @@
 
             <!-- Team Events Section -->
             <section class="gallery-section">
-                <h2>Team Events</h2>
-                <div class="gallery-grid">
+                <div class="gallery-section-header">
+                    <h2>Team Events</h2>
+                    <button type="button" class="gallery-add-btn team-gallery-control" data-category="team-events" runat="server" id="btnAddTeamEvents" visible="false">
+                        <i class="fas fa-plus"></i> Add Photo
+                    </button>
+                </div>
+                <div class="gallery-grid" id="teamEventsGrid">
                     <div class="gallery-item">
                         <div class="gallery-image">
                             <img src="Images2/acv4.jpg" alt="Team Event 1" />
@@ -276,7 +331,8 @@
 
     </form>
 
-    <script src="Scripts2/gallery.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="Scripts2/gallery.js?v=team-gallery-add-20260527"></script>
     <script src="Scripts2/index.js"></script>
 </body>
 </html>

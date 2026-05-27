@@ -286,7 +286,7 @@
                     <h3>Edit Member</h3>
                     <button type="button" class="close-btn" onclick="closeEditModal()">&times;</button>
                 </div>
-                <form id="editForm" style="display: none;">
+                <div id="editForm" style="display: none;">
                     <input type="hidden" id="editUserId" />
                     <div class="form-group">
                         <label for="editUsername">Full Name</label>
@@ -301,10 +301,10 @@
                         <input type="text" id="editRoll" required />
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn-primary">Save Changes</button>
+                        <button type="button" id="saveMemberBtn" class="btn-primary">Save Changes</button>
                         <button type="button" class="btn-secondary" onclick="closeEditModal()">Cancel</button>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
 
@@ -367,7 +367,7 @@
                 editMemberModal.style.display = 'none';
             }
             if (editForm) {
-                (editForm).reset();
+                editForm.style.display = 'none';
             }
         }
 
@@ -385,6 +385,36 @@
             if (userEventsModal) {
                 userEventsModal.style.display = 'block';
             }
+
+            callMemberMethod('GetUserRegisteredEvents', { userId: parseInt(userId) })
+                .then(function(events) {
+                    if (events && events.success === false) {
+                        eventsList.innerHTML = '<p class="no-events-text">Error: ' + events.message + '</p>';
+                        return;
+                    }
+
+                    if (!events || events.length === 0) {
+                        eventsList.innerHTML = '<p class="no-events-text">No registered events found.</p>';
+                        return;
+                    }
+
+                    var html = '<div class="events-list-items">';
+                    events.forEach(function(item) {
+                        html += '<div class="event-list-item">' +
+                            '<h4>' + escapeHtml(item.name) + '</h4>' +
+                            '<p><strong>Type:</strong> ' + escapeHtml(item.type) + '</p>' +
+                            '<p><strong>Date:</strong> ' + escapeHtml(item.date) + '</p>' +
+                            '<p><strong>Time:</strong> ' + escapeHtml(item.time) + '</p>' +
+                            '<p><strong>Status:</strong> ' + escapeHtml(item.status) + '</p>' +
+                            '</div>';
+                    });
+                    html += '</div>';
+                    eventsList.innerHTML = html;
+                })
+                .catch(function(error) {
+                    eventsList.innerHTML = '<p class="no-events-text">Error loading registered events. Check EventRegistrations table and browser console.</p>';
+                    console.error(error);
+                });
         }
 
         function closeEventsModal() {
@@ -396,11 +426,13 @@
 
         function deleteMember(userId) {
             if (confirm('Are you sure you want to delete this member?')) {
-                fetch('member.aspx?action=delete&userId=' + userId, { method: 'POST' })
-                    .then(function(response) {
-                        if (response.ok) {
-                            alert('Member deleted successfully!');
+                callMemberMethod('DeleteMemberAjax', { userId: parseInt(userId) })
+                    .then(function(result) {
+                        if (result.success) {
+                            alert(result.message);
                             location.reload();
+                        } else {
+                            alert('Error: ' + result.message);
                         }
                     })
                     .catch(function(error) {
@@ -409,10 +441,33 @@
             }
         }
 
+        function callMemberMethod(methodName, payload) {
+            return fetch('member.aspx/' + methodName, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json; charset=utf-8' },
+                body: JSON.stringify(payload || {})
+            })
+            .then(function(response) {
+                if (!response.ok) {
+                    throw new Error(response.status + ' ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(function(response) {
+                return typeof response.d === 'string' ? JSON.parse(response.d) : response.d;
+            });
+        }
+
+        function escapeHtml(value) {
+            var div = document.createElement('div');
+            div.textContent = value || '';
+            return div.innerHTML;
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
-            var editForm = document.getElementById('editForm');
-            if (editForm) {
-                editForm.addEventListener('submit', function(e) {
+            var saveMemberBtn = document.getElementById('saveMemberBtn');
+            if (saveMemberBtn) {
+                saveMemberBtn.addEventListener('click', function(e) {
                     e.preventDefault();
                     var userIdInput = document.getElementById('editUserId');
                     var usernameInput = document.getElementById('editUsername');
@@ -424,18 +479,18 @@
                     var email = (emailInput).value;
                     var roll = (rollInput).value;
 
-                    var formData = new FormData();
-                    formData.append('action', 'update');
-                    formData.append('userId', userId);
-                    formData.append('username', username);
-                    formData.append('email', email);
-                    formData.append('roll', roll);
-
-                    fetch('member.aspx', { method: 'POST', body: formData })
-                        .then(function(response) {
-                            if (response.ok) {
-                                alert('Member updated successfully!');
+                    callMemberMethod('UpdateMemberAjax', {
+                        userId: parseInt(userId),
+                        username: username,
+                        email: email,
+                        roll: roll
+                    })
+                        .then(function(result) {
+                            if (result.success) {
+                                alert(result.message);
                                 location.reload();
+                            } else {
+                                alert('Error: ' + result.message);
                             }
                         })
                         .catch(function(error) {
@@ -456,5 +511,6 @@
             };
         });
     </script>
+    <script src="Scripts2/member.js?v=member-actions-20260527"></script>
 </body>
 </html>

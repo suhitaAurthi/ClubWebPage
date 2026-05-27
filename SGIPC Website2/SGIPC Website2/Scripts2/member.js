@@ -1,53 +1,38 @@
-// Member Management JavaScript
-
+// Member page click delegation. The page defines editMember, showUserEvents,
+// and deleteMember because it owns the modal markup.
 document.addEventListener('DOMContentLoaded', function() {
-    // Event delegation for edit button
+    const signedInUserId = typeof currentUserId === 'number' ? currentUserId : null;
+
+    const editableButtons = document.querySelectorAll('.btn-edit, .btn-delete');
+    for (let i = 0; i < editableButtons.length; i++) {
+        const rowUserId = parseInt(editableButtons[i].getAttribute('data-user-id'), 10);
+        if (!signedInUserId || rowUserId !== signedInUserId) {
+            editableButtons[i].style.display = 'none';
+        }
+    }
+
     document.addEventListener('click', function(e) {
-        if (e.target.closest('.btn-edit')) {
-            const button = e.target.closest('.btn-edit');
-            const userId = button.getAttribute('data-user-id');
-            const username = button.getAttribute('data-username');
-            const email = button.getAttribute('data-email');
-            const roll = button.getAttribute('data-roll');
-            editMember(userId, username, email, roll);
+        const editButton = e.target.closest('.btn-edit');
+        if (editButton && typeof window.editMember === 'function') {
+            window.editMember(
+                editButton.getAttribute('data-user-id'),
+                editButton.getAttribute('data-username'),
+                editButton.getAttribute('data-email'),
+                editButton.getAttribute('data-roll')
+            );
         }
-        
-        // Event delegation for show events button
-        if (e.target.closest('.btn-show')) {
-            const button = e.target.closest('.btn-show');
-            const userId = button.getAttribute('data-user-id');
-            const username = button.getAttribute('data-username');
-            showUserEvents(userId, username);
+
+        const showButton = e.target.closest('.btn-show');
+        if (showButton && typeof window.showUserEvents === 'function') {
+            window.showUserEvents(
+                showButton.getAttribute('data-user-id'),
+                showButton.getAttribute('data-username')
+            );
         }
-        
-        // Event delegation for delete button
-        if (e.target.closest('.btn-delete')) {
-            const button = e.target.closest('.btn-delete');
-            const userId = button.getAttribute('data-user-id');
-            deleteMember(userId);
+
+        const deleteButton = e.target.closest('.btn-delete');
+        if (deleteButton && typeof window.deleteMember === 'function') {
+            window.deleteMember(deleteButton.getAttribute('data-user-id'));
         }
     });
 });
-
-// Edit member function
-function editMember(userId, username, email, roll) {
-    console.log('Edit member:', { userId, username, email, roll });
-    // TODO: Implement edit modal or redirect to edit page
-    alert('Edit functionality for: ' + username);
-}
-
-// Show user events function
-function showUserEvents(userId, username) {
-    console.log('Show events for user:', { userId, username });
-    // TODO: Implement showing user events
-    alert('Show events for: ' + username);
-}
-
-// Delete member function
-function deleteMember(userId) {
-    console.log('Delete member:', userId);
-    if (confirm('Are you sure you want to delete this member?')) {
-        // TODO: Implement delete functionality via AJAX
-        alert('Delete member: ' + userId);
-    }
-}

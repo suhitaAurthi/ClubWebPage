@@ -109,7 +109,7 @@
                 <p>Join us for exciting workshops and competitions</p>
                 <!-- Management Controls for Approved Team Members -->
                 <div id="teamMemberControls" style="display: none; margin-top: 20px;">
-                    <button id="createEventBtn" class="event-manage-btn">
+                    <button id="createEventBtn" type="button" class="event-manage-btn">
                         <i class="fas fa-plus"></i> Create Event
                     </button>
                 </div>
@@ -119,33 +119,33 @@
             <section id="eventManagementForm" class="event-management-section" style="display: none;">
                 <div class="management-container">
                     <div class="form-header">
-                        <h2>Create/Edit Event</h2>
+                        <h2 id="eventFormTitle">Create Event</h2>
                         <button type="button" id="closeFormBtn" class="close-form-btn" title="Close">
                             <i class="fas fa-times"></i>
                         </button>
                     </div>
-                    <form id="eventForm" class="event-form">
+                    <div id="eventForm" class="event-form">
                         <!-- Basic Information Section -->
                         <div class="form-section">
                             <h3 class="section-title">Event Details</h3>
                             <div class="form-row">
                                 <div class="form-group full-width">
                                     <label for="eventTitle">Event Title <span class="required">*</span></label>
-                                    <input type="text" id="eventTitle" placeholder="e.g., Algorithm Bootcamp" required />
+                                    <input type="text" id="eventTitle" name="eventTitle" placeholder="e.g., Algorithm Bootcamp" required />
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group full-width">
                                     <label for="eventDescription">Description <span class="required">*</span></label>
-                                    <textarea id="eventDescription" placeholder="Provide a detailed description of the event..." required rows="5"></textarea>
+                                    <textarea id="eventDescription" name="eventDescription" placeholder="Provide a detailed description of the event..." required rows="5"></textarea>
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group">
                                     <label for="eventType">Event Type <span class="required">*</span></label>
-                                    <select id="eventType" required>
+                                    <select id="eventType" name="eventType" required>
                                         <option value="">Select Type</option>
                                         <option value="normal">Normal Event</option>
                                         <option value="team">Team Event</option>
@@ -154,7 +154,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="eventLocation">Location <span class="required">*</span></label>
-                                    <input type="text" id="eventLocation" placeholder="e.g., Main Hall / Online" required />
+                                    <input type="text" id="eventLocation" name="eventLocation" placeholder="e.g., Main Hall / Online" required />
                                 </div>
                             </div>
                         </div>
@@ -165,17 +165,17 @@
                             <div class="form-row three-cols">
                                 <div class="form-group">
                                     <label for="eventDate">Event Date <span class="required">*</span></label>
-                                    <input type="date" id="eventDate" required />
+                                    <input type="date" id="eventDate" name="eventDate" required />
                                     <small class="form-hint">Select the date when the event will occur</small>
                                 </div>
                                 <div class="form-group">
                                     <label for="startTime">Start Time <span class="required">*</span></label>
-                                    <input type="time" id="startTime" required />
+                                    <input type="time" id="startTime" name="startTime" required />
                                     <small class="form-hint">When the event starts</small>
                                 </div>
                                 <div class="form-group">
                                     <label for="endTime">End Time <span class="required">*</span></label>
-                                    <input type="time" id="endTime" required />
+                                    <input type="time" id="endTime" name="endTime" required />
                                     <small class="form-hint">When the event ends</small>
                                 </div>
                             </div>
@@ -187,7 +187,7 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label for="registrationStatus">Registration Status <span class="required">*</span></label>
-                                    <select id="registrationStatus" required>
+                                    <select id="registrationStatus" name="registrationStatus" required>
                                         <option value="">Select Status</option>
                                         <option value="open">Open</option>
                                         <option value="closed">Closed</option>
@@ -199,7 +199,7 @@
                             <div class="form-row">
                                 <div class="form-group full-width">
                                     <label for="registrationLink">Registration Link</label>
-                                    <input type="url" id="registrationLink" placeholder="https://forms.gle/..." />
+                                    <input type="url" id="registrationLink" name="registrationLink" placeholder="https://forms.gle/..." />
                                     <small class="form-hint">Google Form or registration page link</small>
                                 </div>
                             </div>
@@ -209,7 +209,7 @@
                                     <label for="contestLink">
                                         <i class="fas fa-trophy"></i> Contest/Judge Link
                                     </label>
-                                    <input type="url" id="contestLink" placeholder="https://vjudge.net/contest/... or https://codeforces.com/..." />
+                                    <input type="url" id="contestLink" name="contestLink" placeholder="https://vjudge.net/contest/... or https://codeforces.com/..." />
                                     <small class="form-hint">Link to online judge or contest platform (for contests only)</small>
                                 </div>
                             </div>
@@ -221,9 +221,9 @@
                             <div class="form-row">
                                 <div class="form-group full-width">
                                     <label for="publishStatus">Publish Status <span class="required">*</span></label>
-                                    <select id="publishStatus" required>
-                                        <option value="unpublished">Unpublished (Draft)</option>
+                                    <select id="publishStatus" name="publishStatus" required>
                                         <option value="published">Published</option>
+                                        <option value="unpublished">Unpublished (Draft)</option>
                                     </select>
                                     <small class="form-hint">Published events are visible to all members</small>
                                 </div>
@@ -231,14 +231,14 @@
                         </div>
 
                         <div class="form-actions">
-                            <button type="submit" class="btn-primary">
+                            <button type="button" id="saveEventBtn" class="btn-primary">
                                 <i class="fas fa-save"></i> Save Event
                             </button>
                             <button type="button" id="cancelEventBtn" class="btn-secondary">
                                 <i class="fas fa-times"></i> Cancel
                             </button>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </section>
 
@@ -256,7 +256,9 @@
 
     </form>
 
+    <!-- jQuery Library for AJAX calls -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="Scripts2/index.js"></script>
-    <script src="Scripts2/events.js"></script>
+    <script src="Scripts2/events.js?v=event-registration-dashboard-20260527"></script>
 </body>
 </html>
