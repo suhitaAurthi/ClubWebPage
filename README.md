@@ -9,7 +9,7 @@ A responsive ASP.NET web application built for SGIPC featuring member management
 - **Team Management** - Manage team members with dedicated team page
 - **Gallery** - Photo gallery for browsing community images
 - **Member Dashboard** - Personalized member information and profile page
-- - **Forget password and Reset password** - User can change password if needed
+-  **Forget password and Reset password** - User can change password if needed
 
 ## Technology Stack
 - **Backend** - ASP.NET (C#)
