@@ -10,7 +10,7 @@ A responsive ASP.NET web application built for SGIPC featuring member management
 - **Gallery** - Photo gallery for browsing community images
 - **Member Dashboard** - Personalized member information and profile page
 -  **Forget password and Reset password** - User can change password if needed
--  
+  
 -  ---
 
 ## Security Features
