@@ -10,8 +10,8 @@
     <!-- Fixed Google Fonts Link -->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 
-    <link rel="stylesheet" href="Content2/register.css" />
-    <script src="Scripts2/register.js" defer></script>
+    <link rel="stylesheet" href="Content2/register.css?v=3" />
+    <script src="Scripts2/register.js?v=3" defer></script>
 </head>
 
 <body>
@@ -45,6 +45,9 @@
                 <span class="material-symbols-outlined">key_vertical</span>
                 <label for="password">Password:</label>
                 <input type="password" id="password" runat="server" clientidmode="Static" />
+                <button type="button" class="password-toggle" data-target="password" aria-label="Show password">
+                    <span class="material-symbols-outlined" aria-hidden="true">visibility</span>
+                </button>
             </div>
 
             <!-- Confirm Password Field -->
@@ -52,6 +55,9 @@
                 <span class="material-symbols-outlined">key_vertical</span>
                 <label for="confirmPassword">Confirm:</label>
                 <input type="password" id="confirmPassword" runat="server" clientidmode="Static" />
+                <button type="button" class="password-toggle" data-target="confirmPassword" aria-label="Show confirm password">
+                    <span class="material-symbols-outlined" aria-hidden="true">visibility</span>
+                </button>
             </div>
 
             <small id="confirmPasswordError" class="error"></small>

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Security.Cryptography;
@@ -36,58 +35,54 @@ namespace SGIPC_Website2
                 try
                 {
                     conn.Open();
-                    
-                    // First, check if user exists (regardless of password)
-                    string checkQuery = "SELECT UserId, Email, Username, PasswordHash FROM Users WHERE Email = @Email OR Roll = @Roll";
+
+                    string checkQuery = @"
+                        SELECT UserId, Email, Username, PasswordHash
+                        FROM dbo.Users
+                        WHERE Email = @Email OR Roll = @Roll";
+
                     using (SqlCommand checkCmd = new SqlCommand(checkQuery, conn))
                     {
                         checkCmd.Parameters.AddWithValue("@Email", userInput);
                         checkCmd.Parameters.AddWithValue("@Roll", userInput);
 
-                        SqlDataReader checkReader = checkCmd.ExecuteReader();
-                        if (checkReader.Read())
+                        using (SqlDataReader checkReader = checkCmd.ExecuteReader())
                         {
-                            int userId = Convert.ToInt32(checkReader["UserId"]);
-                            string email = checkReader["Email"].ToString();
-                            string username = checkReader["Username"].ToString();
-                            string storedHash = checkReader["PasswordHash"].ToString();
-
-                            // Check if password matches
-                            if (storedHash == hashedPassword)
+                            if (checkReader.Read())
                             {
-                                Session["UserId"] = userId;
-                                Session["UserEmail"] = email;
-                                Session["UserName"] = username;
-                                Session.Timeout = 30;
+                                int userId = Convert.ToInt32(checkReader["UserId"]);
+                                string email = checkReader["Email"].ToString();
+                                string username = checkReader["Username"].ToString();
+                                string storedHash = checkReader["PasswordHash"].ToString();
 
-                                if (fgc.Checked)
+                                if (storedHash == hashedPassword)
                                 {
-                                    Response.Cookies["UserEmail"].Value = email;
-                                    Response.Cookies["UserEmail"].Expires = DateTime.Now.AddDays(7);
-                                }
+                                    Session["UserId"] = userId;
+                                    Session["UserEmail"] = email;
+                                    Session["UserName"] = username;
+                                    Session.Timeout = 30;
 
-                                checkReader.Close();
-                                conn.Close();
-                                conn.Open();
-                                
-                                // Update LastLogin
-                                string updateQuery = "UPDATE Users SET LastLogin = GETDATE() WHERE UserId = @UserId";
-                                using (SqlCommand updateCmd = new SqlCommand(updateQuery, conn))
+                                    // Close reader before running the update on the same connection.
+                                    checkReader.Close();
+
+                                    string updateQuery = "UPDATE dbo.Users SET LastLogin = GETDATE() WHERE UserId = @UserId";
+                                    using (SqlCommand updateCmd = new SqlCommand(updateQuery, conn))
+                                    {
+                                        updateCmd.Parameters.AddWithValue("@UserId", userId);
+                                        updateCmd.ExecuteNonQuery();
+                                    }
+
+                                    Response.Redirect("index.aspx", true);
+                                }
+                                else
                                 {
-                                    updateCmd.Parameters.AddWithValue("@UserId", userId);
-                                    updateCmd.ExecuteNonQuery();
+                                    lblMessage.Text = "Incorrect password.";
                                 }
-
-                                Response.Redirect("index.aspx", true);
                             }
                             else
                             {
-                                lblMessage.Text = "Incorrect password.";
+                                lblMessage.Text = "User not found. Check your email/roll number.";
                             }
-                        }
-                        else
-                        {
-                            lblMessage.Text = "User not found. Check your email/roll number.";
                         }
                     }
                 }
@@ -102,7 +97,7 @@ namespace SGIPC_Website2
             }
         }
 
-        private string HashPassword(string password)
+        private static string HashPassword(string password)
         {
             using (SHA256 sha256 = SHA256.Create())
             {

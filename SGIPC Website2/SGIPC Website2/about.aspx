@@ -30,7 +30,12 @@
                     <a href="register.aspx">Register</a>
                 </asp:Panel>
                 <asp:Panel ID="pnlLoggedIn" runat="server" Visible="false">
-                    <span style="color: white; margin-right: 15px;">Welcome, <asp:Label ID="lblUserName" runat="server"></asp:Label></span>
+                    <div class="user-profile-header">
+                        <div class="profile-icon">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <span class="welcome-text">Welcome, <asp:Label ID="lblUserName" runat="server"></asp:Label></span>
+                    </div>
                     <a href="logout.aspx">Logout</a>
                 </asp:Panel>
             </div>

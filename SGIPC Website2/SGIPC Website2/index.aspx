@@ -39,7 +39,7 @@
                         <div class="profile-icon">
                             <i class="fas fa-user-circle"></i>
                         </div>
-                        <span style="color: white; margin-right: 15px;">Welcome, <asp:Label ID="lblUserName" runat="server"></asp:Label></span>
+                        <span class="welcome-text">Welcome, <asp:Label ID="lblUserName" runat="server"></asp:Label></span>
                     </div>
                     <a href="logout.aspx">Logout</a>
                 </asp:Panel>

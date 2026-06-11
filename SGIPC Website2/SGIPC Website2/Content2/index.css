@@ -42,7 +42,7 @@ form {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 52px;
+    padding: 0 64px 0 52px;
     z-index: 1100;
     border-bottom: 1px solid rgba(190, 120, 255, 0.08);
 }
@@ -96,6 +96,14 @@ form {
     align-items: center;
     gap: 15px;
     z-index: 1101;
+    min-width: 0;
+}
+
+#pnlNotLoggedIn,
+#pnlLoggedIn {
+    display: flex;
+    align-items: center;
+    gap: 22px;
 }
 
 .auth-links a {
@@ -119,13 +127,25 @@ form {
 .user-profile-header {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     position: relative;
     z-index: 1101;
     white-space: nowrap;
+    overflow: visible;
+    text-overflow: ellipsis;
+    max-width: 420px;
+}
+
+.welcome-text {
+    color: #ffffff;
+    display: inline-block;
+    max-width: 340px;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 200px;
+    white-space: nowrap;
+    padding: 10px 12px 10px 0;
+    font-size: 15px;
+    font-weight: 700;
 }
 
 /* Sidebar Auth Links */
@@ -491,7 +511,7 @@ form {
 .user-profile-header {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
 }
 
 .profile-icon {
@@ -582,8 +602,8 @@ form {
     }
 
     .user-profile-header {
-        max-width: 140px;
-        font-size: 12px;
+        max-width: 210px;
+        font-size: 13px;
     }
 
     .user-profile-header span {

@@ -2,12 +2,31 @@ document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("form2");
 
     const fullname = document.getElementById("fullname");
-    const username = document.getElementById("username");
+    const roll = document.getElementById("roll");
     const email = document.getElementById("email");
     const password = document.getElementById("password");
     const confirmPassword = document.getElementById("confirmPassword");
 
     const confirmPasswordError = document.getElementById("confirmPasswordError");
+
+    document.querySelectorAll(".password-toggle").forEach(function (button) {
+        button.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            const input = document.getElementById(button.dataset.target);
+            const icon = button.querySelector(".material-symbols-outlined");
+
+            if (!input || !icon) {
+                return;
+            }
+
+            const isHidden = input.type === "password";
+
+            input.type = isHidden ? "text" : "password";
+            icon.textContent = isHidden ? "visibility_off" : "visibility";
+            button.setAttribute("aria-label", isHidden ? "Hide password" : "Show password");
+        });
+    });
 
     form.addEventListener("submit", function (e) {
         let isValid = true;

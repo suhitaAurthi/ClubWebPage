@@ -1,20 +1,43 @@
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("form2");
 
-    const username = document.getElementById("username");
+    const roll = document.getElementById("roll");
     const password = document.getElementById("password");
 
-    const usernameError = document.getElementById("usernameError");
+    const rollError = document.getElementById("rollError");
     const passwordError = document.getElementById("passwordError");
+
+    document.querySelectorAll(".password-toggle").forEach(function (button) {
+        button.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            const input = document.getElementById(button.dataset.target);
+            const icon = button.querySelector(".material-symbols-outlined");
+
+            if (!input || !icon) {
+                return;
+            }
+
+            const isHidden = input.type === "password";
+
+            input.type = isHidden ? "text" : "password";
+            icon.textContent = isHidden ? "visibility_off" : "visibility";
+            button.setAttribute("aria-label", isHidden ? "Hide password" : "Show password");
+        });
+    });
+
+    if (!form || !roll || !password || !rollError || !passwordError) {
+        return;
+    }
 
     form.addEventListener("submit", function (e) {
         let isValid = true;
 
-        usernameError.textContent = "";
+        rollError.textContent = "";
         passwordError.textContent = "";
 
-        if (username.value.trim() === "") {
-            usernameError.textContent = "Username or email is required.";
+        if (roll.value.trim() === "") {
+            rollError.textContent = "Roll or email is required.";
             isValid = false;
         }
 

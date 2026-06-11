@@ -11,17 +11,17 @@ namespace SGIPC_Website2
 {
 
 
-    public partial class login
+    public partial class ForgotPassword
     {
 
         /// <summary>
-        /// form2 control.
+        /// form1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form2;
+        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
         /// lblMessage control.
@@ -33,30 +33,21 @@ namespace SGIPC_Website2
         protected global::System.Web.UI.WebControls.Label lblMessage;
 
         /// <summary>
-        /// roll control.
+        /// txtRollOrEmail control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText roll;
+        protected global::System.Web.UI.WebControls.TextBox txtRollOrEmail;
 
         /// <summary>
-        /// password control.
+        /// lnkResetPassword control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputPassword password;
-
-        /// <summary>
-        /// btnLogin control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnLogin;
+        protected global::System.Web.UI.WebControls.LinkButton lnkResetPassword;
     }
 }

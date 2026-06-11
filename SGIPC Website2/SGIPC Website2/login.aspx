@@ -9,12 +9,12 @@
 
     <title>Login Page</title>
 
-    <link rel="stylesheet" href="Content2/login.css" />
+    <link rel="stylesheet" href="Content2/login.css?v=3" />
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=key_vertical,person&display=block" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=key_vertical,person,visibility,visibility_off&display=block" />
 
     <!-- CHANGED: Added external JavaScript file for client-side validation -->
-    <script src="Scripts2/login.js" defer></script>
+    <script src="Scripts2/login.js?v=3" defer></script>
 </head>
 
 <body>
@@ -30,10 +30,10 @@
                 <span class="material-symbols-outlined">person</span>
                 <label for="roll">Roll/E-mail:</label>
 
-                <!-- CHANGED: Added ClientIDMode="Static" so JavaScript can easily find this input by id="username" -->
+                <!-- CHANGED: Added ClientIDMode="Static" so JavaScript can easily find this input by id="roll" -->
                 <input type="text" id="roll" runat="server" ClientIDMode="Static" />
 
-                <!-- CHANGED: Added small tag to show username validation error using JavaScript -->
+                <!-- CHANGED: Added small tag to show roll/email validation error using JavaScript -->
                 <small id="rollError" class="error"></small>
             </div>
 
@@ -43,20 +43,16 @@
 
                 <!-- CHANGED: Added ClientIDMode="Static" so JavaScript can easily find this input by id="password" -->
                 <input type="password" id="password" runat="server" ClientIDMode="Static" />
+                <button type="button" class="password-toggle" data-target="password" aria-label="Show password">
+                    <span class="material-symbols-outlined" aria-hidden="true">visibility</span>
+                </button>
 
                 <!-- CHANGED: Added small tag to show password validation error using JavaScript -->
                 <small id="passwordError" class="error"></small>
             </div>
 
-            <div class="forgot">
-                <label for="fgc">
-
-                    <!-- CHANGED: Added ClientIDMode="Static" so JavaScript/C# can access checkbox clearly -->
-                    <input type="checkbox" id="fgc" runat="server" ClientIDMode="Static" />
-
-                    Remember me.
-                </label>
-                <a href="#">Forgot Password?</a>
+            <div class="forgot forgot-single">
+                <a href="ForgotPassword.aspx">Forgot Password?</a>
             </div>
 
             <!-- CHANGED: Replaced normal HTML button with ASP.NET Button so C# OnClick event can work -->
